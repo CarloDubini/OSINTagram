@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon app.js"
+    "devStart": "nodemon app.js",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "express-session": "^1.17.3",
     "firebase": "^9.17.1",
     "firebase-admin": "^11.5.0",
+    "heroku": "^7.68.2",
     "i": "^0.3.7",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1"
