@@ -1,4 +1,5 @@
 "use strict";
+require('dotenv').config();
 
 const express = require("express");
 const morgan = require('morgan')
@@ -19,4 +20,12 @@ app.use(express.urlencoded({extended: false}))
 app.use(require('./routers/index'));
 app.use(express.static(path.join(__dirname,'public')))
 
-module.exports =app;
+const port = process.env.PORT;
+
+app.listen(port, (err) => {
+  if (err) {
+    console.error("No se pudo inicializar el servidor: " + err.message);
+  } else {
+    console.log(`Servidor arrancado en el puerto ${port}`);
+  }
+});
