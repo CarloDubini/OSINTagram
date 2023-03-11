@@ -29,3 +29,4 @@ router.get('/publicacion:id', async (req,res) =>{
 
 
   module.exports = router;
+ 
