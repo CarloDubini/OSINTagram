@@ -1,0 +1,42 @@
+body {
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	margin-top: 0;
+}
+
+#publications-list {
+	list-style: none;
+	padding: 0;
+}
+
+#publications-list li {
+	margin-bottom: 10px;
+}
+
+.publication-link {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#publication {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+#publication-title {
+	margin-top: 0;
+}
+
+#publication-image {
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+#publication-description,
+#publication-location {
+	margin-top: 0;
+}
