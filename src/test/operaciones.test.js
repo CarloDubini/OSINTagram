@@ -1,29 +1,8 @@
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
+const {tituloVacio,longitudLista,titulosVacios,ordenarAlfabeticamente}  = require('OSINTagram/src/routers/index.js');
 
-
-  
 let lista;
-function tituloVacio(title){
-    if(title === ""){
-        return true;
-    }
-    return false;
-}
-function titulosVacios(lista){
-    for(let i=0; i<lista.length;i++){
-        if(tituloVacio(lista[i])) return false;
-    }
-    return true;
-}
-function longitudLista(lista){
-    console.log(lista.length)
-    return lista.length;
-}
-function ordenarAlfabeticamente(lista){
-    lista.sort((a, b) => a.titulo.localeCompare(b.titulo))
-    return lista;
-}
 beforeAll(async () => {
   const querySnapshot = await db.collection('Publicaciones').get();
   lista = querySnapshot.docs.map(doc => ({

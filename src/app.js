@@ -16,7 +16,8 @@ app.set("view engine", "ejs")
 app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-app.use(require('./routers/index'));
+const {router} = require('./routers/index.js');
+app.use(router);
 app.use(express.static(path.join(__dirname,'public')))
 
 const port = process.env.PORT;
