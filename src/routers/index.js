@@ -29,6 +29,30 @@ router.get('/publicacion:id', async (req,res) =>{
 
     res.render('main',{publicacion: lista})
 })
+
+//Buscar por palabra clave
+/*function search() {
+    router.get('/main',async (req,res) =>{
+        const querySnapshot= await db.collection('Publicaciones').get()
+        const lista =querySnapshot.docs.map(doc =>({
+            id: doc.id,
+            ...doc.data()
+        }))
+        const searchText = document.getElementById('searchInput').value;
+        const filters = new Map();
+
+        lista.forEach((value, key) => {
+            if(value.titulo.toLowerCase().includes(searchText.toLowerCase())){
+                filters.set(key, value);
+            }          
+        });
+
+        console.log(filters)
+    
+        res.render('main',{taskList: filters})
+    })
+}*/
+
 //Funciones para comprobar
 function tituloVacio(title){
     if(title === ""){
