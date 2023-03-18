@@ -13,7 +13,8 @@ router.get('/',async (req,res) =>{
     }))
     ordenarAlfabeticamente(lista);
     console.log(lista);
-    await pruebaDatosPorTítulo(lista); //comprobacion de que funciona correctamente
+    //await pruebaDatosPorTítulo(lista); //comprobacion de que funciona correctamente
+    //await pruebaBusquedaPorPalabraClave(lista); //comprobacion de que funciona correctamente
     res.render('main',{taskList: lista})
 })
 
@@ -77,27 +78,49 @@ async function pruebaDatosPorTítulo(lista){
     }
 }
 //Buscar por palabra clave
-/*function search() {
-    router.get('/main',async (req,res) =>{
-        const querySnapshot= await db.collection('Publicaciones').get()
-        const lista =querySnapshot.docs.map(doc =>({
-            id: doc.id,
-            ...doc.data()
-        }))
-        const searchText = document.getElementById('searchInput').value;
-        const filters = new Map();
+async function buscarPorPalabraClave(palabra, lista) {
+    var encontrado = false;
+    var listaResultado = [];
+    let insensibilizador1 = "";
+    let insensibilizador2 = "";
 
-        lista.forEach((value, key) => {
-            if(value.titulo.toLowerCase().includes(searchText.toLowerCase())){
-                filters.set(key, value);
-            }          
+    palabra = palabra.toUpperCase();
+
+    if (lista && lista.length > 0) {
+        lista.forEach((elemento) => {
+            insensibilizador1 = elemento.titulo.toUpperCase();
+            //insensibilizador2 = elemento.descripcion.toUpperCase();
+            if(insensibilizador1.includes(palabra)){  // poner || insensibilizador2.includes(palabra)
+                listaResultado.push(elemento);
+                encontrado = true;
+            }
         });
+    }
+    else {
+        console.log('La lista de publicaciones está vacía o no está definida.');
+    }
 
-        console.log(filters)
-    
-        res.render('main',{taskList: filters})
-    })
-}*/
+    if (!encontrado) {
+        console.log(`No se ha encontrado ninguna publicacion con la palabra clave: ${palabra}`);
+    } 
+    else {
+        console.log(`Los datos de la publicacion con la palabra clave: ${palabra} son:\n[\n`);
+        listaResultado.forEach((elemento) => {
+            console.log(`{ Id:${elemento.id}}\n{ Titulo:${elemento.titulo}}\n{ Localizacion:${elemento.localizacion}}\n{ Descripcion:${elemento.descripcion}}\n{ Imagen:${elemento.imagen}}\n`);
+        });
+        console.log(`]`);
+    }
+
+    return listaResultado;
+}
+async function pruebaBusquedaPorPalabraClave(lista){
+    try {
+        await buscarPorPalabraClave('Lugansk',lista);
+        await buscarPorPalabraClave('Embid',lista);
+    } catch (error) {
+        console.log(error);
+    }
+}
 async function ordenarAlfabeticamente(lista){
     lista.sort((a, b) => a.titulo.localeCompare(b.titulo))
     return lista;
