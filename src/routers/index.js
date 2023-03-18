@@ -4,7 +4,7 @@ const {db}= require('../firebase')
 const router = Router();
 
 
-
+//-------------------GETTS y POSTS---------------
 router.get('/',async (req,res) =>{
     const querySnapshot= await db.collection('Publicaciones').get()
     const lista =querySnapshot.docs.map(doc =>({
@@ -30,7 +30,21 @@ router.get('/publicacion:id', async (req,res) =>{
 
     res.render('main',{publicacion: lista})
 })
-//ObtenerDatosPorTitulo
+//----------------VER CADA PUBLICACION-------------
+router.get('/publicacion/:id', async (req,res) =>{
+    console.log("Entrado aqui")
+
+    let id = req.params.id
+    const peticion = await db.collection('Publicaciones').doc(id).get()
+    const publicacion = {id:id, datos : peticion.data()}
+    console.log("--------------------HE CLICKADO EN LA PUBLICACION:---------------------")
+    console.log(publicacion)
+    res.render('publicacion',{publicacion})
+})
+
+
+
+//-----------FUNCIONES VARIAS--------------
 async function obtenerDatosPorTitulo(titulo,lista){  
     var encontrado = false;
     var publicacion;
