@@ -23,7 +23,9 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="task-name"><%= task.titulo %></p>
-                            <button type="button" class="btn btn-info" href="/publicacion/<%=task.id %>">VER</button>
+                            <form action="publicacion/<%=task.id %>">
+                                <button type="submit" class="btn btn-info" href=>VER</button>
+                            </form> 
                         </div>
                     </div>
                 </div>
