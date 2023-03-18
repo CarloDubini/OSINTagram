@@ -42,8 +42,21 @@ router.get('/publicacion/:id', async (req,res) =>{
     console.log(publicacion)
     res.render('publicacion',{publicacion})
 })
+//----------------BUSCAR POR PALABRA CLAVE-------------
+router.get('/search', async (req,res) =>{
+    console.log("Entrado aqui")
 
-
+    const palabraBuscada = req.query.searchInput.toUpperCase();
+    const resultados= await db.collection('Publicaciones').where('titulo', '>=', palabraBuscada).where("titulo", "<=", palabraBuscada + "\uf8ff").get();
+    const taskList = [];
+    resultados.forEach((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        taskList.push(data);
+    });
+    console.log(taskList)
+    res.render('main',{taskList: taskList});
+})
 
 //-----------FUNCIONES VARIAS--------------
 async function obtenerDatosPorTitulo(titulo,lista){  
@@ -88,11 +101,13 @@ async function buscarPorPalabraClave(palabra, lista) {
 
     if (lista && lista.length > 0) {
         lista.forEach((elemento) => {
-            insensibilizador1 = elemento.titulo.toUpperCase();
-            //insensibilizador2 = elemento.descripcion.toUpperCase();
-            if(insensibilizador1.includes(palabra)){  // poner || insensibilizador2.includes(palabra)
-                listaResultado.push(elemento);
-                encontrado = true;
+            if(elemento.titulo){
+                insensibilizador1 = elemento.titulo.toUpperCase();
+                //insensibilizador2 = elemento.descripcion.toUpperCase();
+                if(insensibilizador1.includes(palabra)){  // poner || insensibilizador2.includes(palabra)
+                    listaResultado.push(elemento);
+                    encontrado = true;
+                }
             }
         });
     }

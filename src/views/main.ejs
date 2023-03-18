@@ -13,9 +13,9 @@
 <body>
     <div class="container">
         <h1 class="mt-3 mb-3"id="titulo-publicaciones">PUBLICACIONES</h1>
-        <form>
-            <input type="text" placeholder="Buscar..." id="searchInput">
-            <button class="btn btn-info" onclick= search() type="button">Buscar</button>
+        <form action="/search">
+            <input type="text" placeholder="Buscar..." name="searchInput">
+            <button type="submit" class="btn btn-info">BUSCAR</button>
         </form>
         <div class="row justify-content-center">
             <% taskList.forEach(task => { %>
