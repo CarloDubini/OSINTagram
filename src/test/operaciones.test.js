@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {tituloVacio,longitudLista,titulosVacios,ordenarAlfabeticamente}  = require('OSINTagram/src/routers/index.js');
+const {ordenarAlfabeticamente}  = require();
+const {tituloVacio,longitudLista,titulosVacios} = require('OSINTagram/src/Controller/tests.js')
+
 
 let lista;
 beforeAll(async () => {
