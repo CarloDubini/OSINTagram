@@ -42,6 +42,7 @@ router.get('/publicacion/:id', async (req,res) =>{
     console.log(publicacion)
     res.render('publicacion',{publicacion})
 })
+//----------------PONER QUE TODOS LOS TITULOS SOLO PUEDAN SER EN MAYUSCULAS AL CREARLOS PARA QUE SEA MAS FACIL DE BUSCAR
 //----------------BUSCAR POR PALABRA CLAVE-------------
 router.get('/search', async (req,res) =>{
     console.log("Entrado aqui")
