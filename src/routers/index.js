@@ -3,6 +3,8 @@ const {db}= require('../firebase')
 
 const router = Router();
 
+
+
 router.get('/',async (req,res) =>{
     const querySnapshot= await db.collection('Publicaciones').get()
     const lista =querySnapshot.docs.map(doc =>({
@@ -14,10 +16,8 @@ router.get('/',async (req,res) =>{
     await pruebaDatosPorTítulo(lista); //comprobacion de que funciona correctamente
     res.render('main',{taskList: lista})
 })
-async function ordenarAlfabeticamente(lista){
-    lista.sort((a, b) => a.titulo.localeCompare(b.titulo))
-    return lista;
-}
+
+
 router.get('/publicacion:id', async (req,res) =>{
     //en vez de lista yo quiero datos[id]
     const querySnapshot= await db.collection('Publicaciones').get()
@@ -84,22 +84,11 @@ async function pruebaDatosPorTítulo(lista){
         res.render('main',{taskList: filters})
     })
 }*/
+async function ordenarAlfabeticamente(lista){
+    lista.sort((a, b) => a.titulo.localeCompare(b.titulo))
+    return lista;
+}
 
 //Funciones para comprobar
-function tituloVacio(title){
-    if(title === ""){
-        return true;
-    }
-    return false;
-}
-function titulosVacios(lista){
-    for(let i=0; i<lista.length;i++){
-        if(tituloVacio(lista[i].titulo)) return false;
-    }
-    return true;
-}
-function longitudLista(lista){
-    console.log(lista.length)
-    return lista.length;
-}
-module.exports = {router,tituloVacio,titulosVacios,longitudLista,ordenarAlfabeticamente};
+
+module.exports = {router,ordenarAlfabeticamente};
