@@ -17,8 +17,6 @@ router.get('/',async (req,res) =>{
     const fotovalQuerySnapshot = await db.collection('fotoval').get();
     const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
 
-    //await pruebaDatosPorTítulo(lista); //comprobacion de que funciona correctamente
-    //await pruebaBusquedaPorPalabraClave(lista); //comprobacion de que funciona correctamente
     res.render('main',{taskList: lista, fotoval:fotoval})
 })
 
@@ -57,21 +55,24 @@ router.get('/reportar/:id', async (req,res) =>{
     
     res.render('publicacion',{publicacion})
 })
-//----------------PONER QUE TODOS LOS TITULOS SOLO PUEDAN SER EN MAYUSCULAS AL CREARLOS PARA QUE SEA MAS FACIL DE BUSCAR
 //----------------BUSCAR POR PALABRA CLAVE-------------
 router.get('/search', async (req,res) =>{
     console.log("Entrado aqui")
 
-    const palabraBuscada = req.query.searchInput.toUpperCase();
-    const resultados= await db.collection('Publicaciones').where('titulo', '>=', palabraBuscada).where("titulo", "<=", palabraBuscada + "\uf8ff").get();
-    const taskList = [];
-    resultados.forEach((doc) => {
-        const data = doc.data();
-        data.id = doc.id;
-        taskList.push(data);
-    });
-    console.log(taskList)
-    res.render('main',{taskList: taskList});
+    const palabraBuscada = req.query.searchInput;
+    const querySnapshot= await db.collection('Publicaciones').get()
+    const lista =querySnapshot.docs.map(doc =>({
+        id: doc.id,
+        ...doc.data()
+    }))
+
+    const fotovalQuerySnapshot = await db.collection('fotoval').get();
+    const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
+
+    console.log(lista)
+    const resultado = await buscarPorPalabraClave(palabraBuscada, lista)
+    console.log(resultado);
+    res.render('main',{taskList: resultado, fotoval:fotoval});
 })
 
 //-----------FUNCIONES VARIAS--------------
