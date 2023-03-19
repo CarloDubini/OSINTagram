@@ -13,9 +13,13 @@ router.get('/',async (req,res) =>{
     }))
     ordenarAlfabeticamente(lista);
     console.log(lista);
+    // coger la foto para la valoracion
+    const fotovalQuerySnapshot = await db.collection('fotoval').get();
+    const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
+
     //await pruebaDatosPorTítulo(lista); //comprobacion de que funciona correctamente
     //await pruebaBusquedaPorPalabraClave(lista); //comprobacion de que funciona correctamente
-    res.render('main',{taskList: lista})
+    res.render('main',{taskList: lista, fotoval:fotoval})
 })
 
 
@@ -40,6 +44,17 @@ router.get('/publicacion/:id', async (req,res) =>{
     const publicacion = {id:id, datos : peticion.data()}
     console.log("--------------------HE CLICKADO EN LA PUBLICACION:---------------------")
     console.log(publicacion)
+    res.render('publicacion',{publicacion})
+})
+//----------------REPORTAR-------------
+router.get('/reportar/:id', async (req,res) =>{
+    console.log("Entrado reportar")
+
+    let id = req.params.id
+    const peticion = await db.collection('Publicaciones').doc(id).get()
+    const publicacion = {id:id, datos : peticion.data()}
+    
+    
     res.render('publicacion',{publicacion})
 })
 //----------------PONER QUE TODOS LOS TITULOS SOLO PUEDAN SER EN MAYUSCULAS AL CREARLOS PARA QUE SEA MAS FACIL DE BUSCAR
