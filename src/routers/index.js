@@ -118,10 +118,10 @@ async function buscarPorPalabraClave(palabra, lista) {
 
     if (lista && lista.length > 0) {
         lista.forEach((elemento) => {
-            if(elemento.titulo){
+            if(elemento.titulo && elemento.descripcion){
                 insensibilizador1 = elemento.titulo.toUpperCase();
-                //insensibilizador2 = elemento.descripcion.toUpperCase();
-                if(insensibilizador1.includes(palabra)){  // poner || insensibilizador2.includes(palabra)
+                insensibilizador2 = elemento.descripcion.toUpperCase();
+                if(insensibilizador1.includes(palabra) || insensibilizador2.includes(palabra)){  
                     listaResultado.push(elemento);
                     encontrado = true;
                 }
