@@ -26,11 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm install -g firebase-tools
     - run: npm ci
-    - name: Deploy
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy --only hosting --project osintagram-be0cd
-      env:
-        FIREBASE_TOKEN: 1//03K58Sm6IkvsVCgYIARAAGAMSNwF-L9IrYCBa4X4Z6MtcA0Fwic2qK4N7gH1zy0Tlw-dyfzT1P6-hfAvdkIr2UA6dF1Mw48oIfBE
     - run: npm test
