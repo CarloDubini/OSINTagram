@@ -27,4 +27,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+    - name: Deploy
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting --project appingles-qa
+      env:
+        FIREBASE_TOKEN: 1//03K58Sm6IkvsVCgYIARAAGAMSNwF-L9IrYCBa4X4Z6MtcA0Fwic2qK4N7gH1zy0Tlw-dyfzT1P6-hfAvdkIr2UA6dF1Mw48oIfBE
     - run: npm test
