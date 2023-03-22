@@ -26,11 +26,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - name: Deploy
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy --only hosting --project osintagram-be0cd
+    - run: npm install -g firebase-tools
+    - name: Run Tests
       env:
-        FIREBASE_TOKEN: 1//03K58Sm6IkvsVCgYIARAAGAMSNwF-L9IrYCBa4X4Z6MtcA0Fwic2qK4N7gH1zy0Tlw-dyfzT1P6-hfAvdkIr2UA6dF1Mw48oIfBE
+        FIREBASE_PROJECT_ID: "osintagram-be0cd"
+        FIREBASE_CLIENT_EMAIL: "firebase-adminsdk-9l3nc@osintagram-be0cd.iam.gserviceaccount.com"
+        FIREBASE_PRIVATE_KEY:  ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      run: |
+        echo "$FIREBASE_PRIVATE_KEY" | base64 --decode > $HOME/firebase_key.json
+        firebase auth:ci --project=$FIREBASE_PROJECT_ID --token="${{ secrets.FIREBASE_TOKEN }}"
+        firebase use $FIREBASE_PROJECT_ID --token="${{ secrets.FIREBASE_TOKEN }}"
+        firebase functions:config:get > $HOME/firebase.json
+        jest
+    - run: npm ci
     - run: npm test
