@@ -36,7 +36,7 @@ jobs:
         echo "$FIREBASE_PRIVATE_KEY" | base64 --decode > $HOME/firebase_key.json
         firebase auth:ci --project=$FIREBASE_PROJECT_ID --token="${{ secrets.FIREBASE_TOKEN }}"
         firebase use $FIREBASE_PROJECT_ID --token="${{ secrets.FIREBASE_TOKEN }}"
-        firebase functions:config:get > $HOME/firebase.json
+        firebase functions:config:get > $firebase.json
         jest
     - run: npm ci
     - run: npm test
