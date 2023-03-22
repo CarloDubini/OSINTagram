@@ -31,7 +31,7 @@ jobs:
       env:
         FIREBASE_PROJECT_ID: "osintagram-be0cd"
         FIREBASE_CLIENT_EMAIL: "firebase-adminsdk-9l3nc@osintagram-be0cd.iam.gserviceaccount.com"
-        FIREBASE_PRIVATE_KEY:  ${{ secrets.FIREBASE_PRIVATE_KEY }}
+        FIREBASE_PRIVATE_KEY:  ${{ env.FIREBASE_PRIVATE_KEY }}
       run: |
         echo "$FIREBASE_PRIVATE_KEY" | base64 --decode > $HOME/firebase_key.json
         firebase auth:ci --project=$FIREBASE_PROJECT_ID --token="${{ secrets.FIREBASE_TOKEN }}"
