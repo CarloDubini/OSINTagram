@@ -3,7 +3,6 @@ const { db } = require('OSINTagram/src/firebase');
 const {ordenarAlfabeticamente}  = require();
 const {tituloVacio,longitudLista,titulosVacios} = require('OSINTagram/src/Controller/tests.js')
 
-
 let lista;
 beforeAll(async () => {
   const querySnapshot = await db.collection('Publicaciones').get();
