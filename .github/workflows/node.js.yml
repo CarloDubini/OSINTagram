@@ -31,6 +31,12 @@ jobs:
       env:
         FIREBASE_PROJECT_ID: "osintagram-be0cd"
         FIREBASE_CLIENT_EMAIL: "firebase-adminsdk-9l3nc@osintagram-be0cd.iam.gserviceaccount.com"
-        FIREBASE_PRIVATE_KEY:  "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDjh642q4lGwiEX\nRBSCc6JcI07cHOfLcHc2kDklTyEWzdE9msjTT0S/DIbBf8/Q2BorAzeHeGmp0m+z\n9Se7Kw7vPKWvQloYRuQ5aJbuJ9GCVdfhUsCBgIPO4sDHwR/KUhT7eMydtGb7V1Mk\nNP8bJX/SvCzEFBibTzLwKU4Uo2f1dHEc4uaMqrhK4RVvI7v31KneeP8NQ72VclFI\nDNhGrUlP1YqAlCVpBU3Nlt3gOB/v/2WYRLYmztOKwE9052wQVGEJpkeiI5MaXTab\nUz/hbKzQ+kUG+FXDJUJ244AghIolpVwkq6T64bW3Rh0g6lK3IILYeMYrxpOwu6xo\ngjX7KlwLAgMBAAECggEAObcBCf0ZJUm4+x3Z1f1fAeAy8MKkSYaNttl+pWgdDJvI\np8fLiU5iMdQLmqnBHUiz2pVGUKbKprkqfIuDOIcDksvfe0VpdR8GZUmSf3a6PkVo\nLU/AZRkkViZOoFzso3WOvPs3bAmG1dqgzF5lF427jskM0fAHDd5ZHXJcy/9nL2uP\nlBpTBZKxaf0tzfviLnJY+OsV8j7/9Ej0E7dwQpPTPGSH/HnHT2YQkh+pWM2kqWi1\nJBLjZz0AtizVnWVQtLgfZoUFqgYa8UHmw28MZtUQ+a3N09HMyu0QVzN78ZFQhfvQ\nuo0bT7VpcEJSEBS8q/0FCpJHbiSWH3ywdHnA7Z6GgQKBgQDzICSqslPlwo/KT1ip\na+GX+/wB1uCFgBX8i8Pt77vD9haLKjJ82mEvLzHpI2kKUOROqMOtwzX69EwBD50P\nTbb1sLwDK52nfRkofKKeX2HyhXwmjmH4aBh/U08ZKAduhAFKCgyXR0Nsr3UrSRlL\nDUw05d74b02+euLDwAlrFkCmfwKBgQDvlB70pcUZDSTStq59EyX1YFTYS4BCYZrJ\nFU0K9JIUAelPJwwaP5cPtY0v/MNL9xuazd8J9TUuh3ZXmdmLa4DGSVMK0n31mluV\nzI1mSJw5c6xTLHVWwOdiPeJ1rSKme8DLicbg6FW0na/kgD47JdxrZcyHgiOEFcXw\nCCkgCCe8dQKBgErKy5zbaSXYWaWyDSNpdafss9TZBo7rHVhooqiSxF9/V+YN4CQ6\nhgUe7qq64vhydBminzfYQsXl22/EHtvzW2JvsRcEluZMfK3Q0bIIw7f4yn2N9aOW\nWlrpBP9HKiocX80oFEGBgcNwoonjXe2RtKzdPl+M1gzP/uybKgqQeOj/AoGBALg/\nQKNDTVYbvqLybTSxYjLYN8f0IJpsd96HLC3tst4CLkx6KhuRpfol1IQALq2gR7GA\n/DOrSZAUC5YJMr2/GlTkFSIwiUA1ypNksaXk14hzhiac/UyPpCLwltWLJifE6ptd\nxP44j5kM4DWpzrIsRtyteGMKWYf+OrCDhiUlQHH1AoGAI1AOTALYH1jLfpA5PuWa\nO9lYdRyWwiuT6ar/oVWS71H2qcUJy7l+EMgwi1PaCQXAXRHxv/bCS298Y6JXIVYb\nYtyfQcSRbz0O6TsI1OSfsh4qgv/xZy+sYhEytgiLNUNI0poJKMWh50cXpYbmvaOM\nBDqEotr1qmiJLSI3KzrNJxs=\n-----END PRIVATE KEY-----\n"
+        FIREBASE_PRIVATE_KEY:  ${{ env.FIREBASE_PRIVATE_KEY }}
+      run: |
+        echo "$FIREBASE_PRIVATE_KEY" | base64 --decode > $firebase.json
+        firebase login:ci --project=$FIREBASE_PROJECT_ID --token="${{ env.FIREBASE_TOKEN }}"
+        firebase use $FIREBASE_PROJECT_ID --token="${{ env.FIREBASE_TOKEN }}"
+        firebase functions:config:get > $firebase.json
+        jest
     - run: npm ci
     - run: npm test
