@@ -158,6 +158,12 @@ async function ordenarAlfabeticamente(lista){
     return lista;
 }
 
+//Vista reportar
+function mostrarMensaje(mensaje) {
+    var mensajeDiv = document.getElementById("mensaje");
+    mensajeDiv.innerHTML = mensaje;
+  }
+
 //Funciones para comprobar
 
 module.exports = {router,ordenarAlfabeticamente};

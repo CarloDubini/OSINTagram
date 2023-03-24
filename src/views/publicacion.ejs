@@ -91,8 +91,15 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container">       
         <h1><%= publicacion.datos.titulo %></h1>
+        <script>
+            //if (se comprueba en la base de datos que la publicacion ha sido reportada por varios usuarios) {
+              var mensaje = document.createElement('div');
+              mensaje.textContent = 'Esta publicacion ha sido reportada por varios usuarios y puede ser falsa';
+              document.body.insertBefore(mensaje, document.body.firstChild);
+            // }
+          </script>
         <img src="<%= publicacion.datos.imagen %>" alt="<%= publicacion.datos.titulo %>"/>
         <h3><%= publicacion.datos.localizacion %></h3>
         <p><%= publicacion.datos.descripcion %></p>
