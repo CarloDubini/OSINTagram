@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "integración-continua" ]
+    branches: [ "IC" ]
   pull_request:
-    branches: [ "integración-continua" ]
+    branches: [ "IC" ]
 
 jobs:
   build:
