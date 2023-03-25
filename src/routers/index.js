@@ -165,4 +165,5 @@ module.exports = {router,ordenarAlfabeticamente,
     obtenerDatosPorTitulo,
     pruebaDatosPorTítulo,
     pruebaBusquedaPorPalabraClave,
+    mostrarMensajeDeReporte,
 };

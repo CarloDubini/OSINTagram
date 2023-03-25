@@ -2,14 +2,6 @@ const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
 const {ordenarAlfabeticamente}  = require('OSINTagram/src/routers/index.js');
 
-beforeAll(async () => {
-    const querySnapshot = await db.collection('Publicaciones').get();
-    lista = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-}, 15000);
-
 //Mostrar publicacion -> request(pregunta por la publicacion con ese id)
 test('Comprobar no hay errores en la peticion de la informacion con un Id Correcto', async () => {
     let pasaTest = true;
