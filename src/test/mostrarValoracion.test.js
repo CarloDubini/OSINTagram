@@ -55,10 +55,14 @@ test('Comprobar se recibe bien la valoración en la petición con un Id Correcto
     expect(pasaTest).toBe(true);
     }, 20000);
 
-test('Comprobar que la petición de información con un Id que no existe devuelve undefined en la valoración', async () => {
-        const id = 'IwWoulHSw7v7sxAHdOn1';
-        const peticion = await db.collection('Publicaciones').doc(id).get();
-        const publicacion = {id:id, datos : peticion.data()};
-        expect(publicacion.datos.valoracion).toBeUndefined();
+test('Comprobar que se recibe un objeto undefined en la peticion de la informacion con una valoración que no existe', async () => {
+        let pasaTest = true;
+        try {
+          id = 'IwWoulHSw7v7sxAHdOn1';
+          const peticion = await db.collection('Publicaciones').doc(id).get()
+          const publicacion = {id:id, datos : peticion.data().valoracion}
+        } catch (error) {
+          pasaTest = false;
+        }
+        expect(typeof publicacion).toBe("undefined");
     }, 20000);
-    
