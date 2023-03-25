@@ -12,7 +12,6 @@ router.get('/',async (req,res) =>{
         ...doc.data()
     }))
     ordenarAlfabeticamente(lista);
-    console.log(lista);
     // coger la foto para la valoracion
     const fotovalQuerySnapshot = await db.collection('fotoval').get();
     const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
@@ -29,25 +28,21 @@ router.get('/publicacion:id', async (req,res) =>{
         ...doc.data()
     }))
     ordenarAlfabeticamente(lista);
-    console.log(lista)
 
     res.render('main',{publicacion: lista})
 })
 //----------------VER CADA PUBLICACION-------------
 router.get('/publicacion/:id', async (req,res) =>{
-    console.log("Entrado aqui")
 
     let id = req.params.id
     const peticion = await db.collection('Publicaciones').doc(id).get()
     const publicacion = {id:id, datos : peticion.data()}
-    console.log("--------------------HE CLICKADO EN LA PUBLICACION:---------------------")
-    console.log(publicacion)
+
     let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes)
-    console.log('reportes:',publicacion.datos.reportes,'msg:',mensaje)
+
     res.render('publicacion',{publicacion, mensaje}) 
 })
 function mostrarMensajeDeReporte(numeroReportes){
-    console.log('Hola');
     let mensaje = "";
     if(numeroReportes >= 10){
         mensaje = 'Esta publicacion ha sido reportada por varios usuarios y puede ser falsa'
@@ -56,18 +51,15 @@ function mostrarMensajeDeReporte(numeroReportes){
 }
 //----------------REPORTAR-------------
 router.get('/reportar/:id', async (req,res) =>{
-    console.log("Entrado reportar")
 
     let id = req.params.id
     const peticion = await db.collection('Publicaciones').doc(id).get()
     const publicacion = {id:id, datos : peticion.data()}
     
-    
     res.render('publicacion',{publicacion})
 })
 //----------------BUSCAR POR PALABRA CLAVE-------------
 router.get('/search', async (req,res) =>{
-    console.log("Entrado aqui")
 
     const palabraBuscada = req.query.searchInput;
     const querySnapshot= await db.collection('Publicaciones').get()
@@ -78,10 +70,8 @@ router.get('/search', async (req,res) =>{
 
     const fotovalQuerySnapshot = await db.collection('fotoval').get();
     const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
-
-    console.log(lista)
     const resultado = await buscarPorPalabraClave(palabraBuscada, lista)
-    console.log(resultado);
+
     res.render('main',{taskList: resultado, fotoval:fotoval});
 })
 
@@ -145,10 +135,6 @@ async function buscarPorPalabraClave(palabra, lista) {
     if (!encontrado) {
         console.log(`No se ha encontrado ninguna publicacion con la palabra clave: ${palabra}`);
     } 
-    else {
-        console.log(`Los datos de la publicacion con la palabra clave: ${palabra} son:\n[\n`);
-        console.log(listaResultado)
-    }
 
     return listaResultado;
 }
