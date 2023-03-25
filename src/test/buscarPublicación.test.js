@@ -12,7 +12,7 @@ beforeAll(async () => {
       id: doc.id,
       ...doc.data()
     }));
-  }, 15000);
+}, 15000);
   
 
   test('Comprobar que el título de la publicación contenga la palabra clave',async () =>{
