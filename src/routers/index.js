@@ -166,4 +166,10 @@ function mostrarMensaje(mensaje) {
 
 //Funciones para comprobar
 
-module.exports = {router,ordenarAlfabeticamente};
+module.exports = {router,ordenarAlfabeticamente,
+    mostrarMensaje,
+    buscarPorPalabraClave,
+    obtenerDatosPorTitulo,
+    pruebaDatosPorTítulo,
+    pruebaBusquedaPorPalabraClave,
+};
