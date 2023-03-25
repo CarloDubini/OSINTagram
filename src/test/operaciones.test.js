@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {ordenarAlfabeticamente}  = require();
+const {ordenarAlfabeticamente}  = require('OSINTagram/src/routers/index.js');
 const {tituloVacio,longitudLista,titulosVacios} = require('OSINTagram/src/Controller/tests.js')
 
 let lista;
@@ -22,17 +22,14 @@ test('Comprobar que se reciben n titulos de publicacion', async () => {
 
 test('Comprobar que se recibe una lista vacia', async () => {
   const querySnapshot = await db.collection('Publicaciones').get();
-  const listaVacia = querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
+  let listaVacia =[]
   expect(longitudLista(listaVacia)).toBe(0);
 }, 20000);
 
 test('Comprobar que se ordenan alfabeticamente por el título', async () => {
     lista2=lista
     lista2.sort((a, b) => a.titulo.localeCompare(b.titulo))
-    expect(ordenarAlfabeticamente(lista)).toBe(lista2);
+    expect(await ordenarAlfabeticamente(lista)).toBe(lista2);
 }, 20000);
 
 

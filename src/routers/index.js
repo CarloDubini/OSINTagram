@@ -137,10 +137,7 @@ async function buscarPorPalabraClave(palabra, lista) {
     } 
     else {
         console.log(`Los datos de la publicacion con la palabra clave: ${palabra} son:\n[\n`);
-        listaResultado.forEach((elemento) => {
-            console.log(`{ Id:${elemento.id}}\n{ Titulo:${elemento.titulo}}\n{ Localizacion:${elemento.localizacion}}\n{ Descripcion:${elemento.descripcion}}\n{ Imagen:${elemento.imagen}}\n`);
-        });
-        console.log(`]`);
+        console.log(listaResultado)
     }
 
     return listaResultado;

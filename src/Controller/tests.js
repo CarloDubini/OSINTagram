@@ -16,7 +16,6 @@ function titulosVacios(lista){
 }
 
 function longitudLista(lista){
-    console.log(lista.length)
     return lista.length;
 }
 
