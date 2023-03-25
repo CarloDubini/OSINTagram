@@ -42,8 +42,18 @@ router.get('/publicacion/:id', async (req,res) =>{
     const publicacion = {id:id, datos : peticion.data()}
     console.log("--------------------HE CLICKADO EN LA PUBLICACION:---------------------")
     console.log(publicacion)
-    res.render('publicacion',{publicacion})
+    let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes)
+    console.log('reportes:',publicacion.datos.reportes,'msg:',mensaje)
+    res.render('publicacion',{publicacion, mensaje}) 
 })
+function mostrarMensajeDeReporte(numeroReportes){
+    console.log('Hola');
+    let mensaje = "";
+    if(numeroReportes >= 10){
+        mensaje = 'Esta publicacion ha sido reportada por varios usuarios y puede ser falsa'
+    }
+    return mensaje;
+}
 //----------------REPORTAR-------------
 router.get('/reportar/:id', async (req,res) =>{
     console.log("Entrado reportar")

@@ -88,18 +88,34 @@
         button:hover {
             background-color: #0069d9;
         }
+        .alert {
+            position: relative;
+            padding: 1em;
+            border-radius: 4px;
+            border: 1px solid #ff0707;
+            background-color: #f8a6a6;
+            color: #0f0b00;
+        }
+
+        .alert-icon {
+            position: absolute;
+            top: 0.5em;
+            left: 0.5em;
+            font-size: 1.5em;
+            line-height: 1;
+            color: #ff0707;
+        }
     </style>
 </head>
 <body>
     <div class="container">       
         <h1><%= publicacion.datos.titulo %></h1>
-        <script>
-            //if (se comprueba en la base de datos que la publicacion ha sido reportada por varios usuarios) {
-              var mensaje = document.createElement('div');
-              mensaje.textContent = 'Esta publicacion ha sido reportada por varios usuarios y puede ser falsa';
-              document.body.insertBefore(mensaje, document.body.firstChild);
-            // }
-          </script>
+        <% if (mensaje !== '') { %>
+            <div class="alert alert-warning">
+                <span class="alert-icon">&#9888;</span>
+                <p><%= mensaje %></p>
+            </div>
+        <% } %>
         <img src="<%= publicacion.datos.imagen %>" alt="<%= publicacion.datos.titulo %>"/>
         <h3><%= publicacion.datos.localizacion %></h3>
         <p><%= publicacion.datos.descripcion %></p>
