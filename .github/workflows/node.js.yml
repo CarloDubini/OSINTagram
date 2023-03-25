@@ -27,5 +27,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install -g firebase-tools
+    - name: Run Tests
+      env:
+        FIREBASE_PROJECT_ID: "osintagram-be0cd"
+        FIREBASE_CLIENT_EMAIL: "firebase-adminsdk-9l3nc@osintagram-be0cd.iam.gserviceaccount.com"
+        FIREBASE_PRIVATE_KEY:  ${{ secrets.FIREBASE_PRIVATE_KEY }}
     - run: npm ci
     - run: npm test
