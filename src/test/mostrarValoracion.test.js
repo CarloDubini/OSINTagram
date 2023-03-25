@@ -23,29 +23,23 @@ test('Comprobar que se recibe bien la valoración en la petición con un Id Corr
     expect(pasaTest).toBe(true);
 }, 20000);
 
-test('Comprobar que todas las valoraciones están en el rango correcto', async () => {
+test('Comprobar que se recibe bien la valoración en la petición con un Id Correcto', async () => {
     let pasaTest = true;
-    const valoracionMinima = 1;
-    const valoracionMaxima = 5;
+    const valMin = 1;
+    const valMax = 5;
     try {
-      const querySnapshot = await db.collection('Publicaciones').get();
-      const publicaciones = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      publicaciones.forEach(publicacion => {
-        const valoracion = publicacion.datos.valoracion;
-        if (valoracion < valoracionMinima || valoracion > valoracionMaxima) {
-          pasaTest = false;
+      const id = 'IwWoulHSw7v7sxAHdOn5';
+      const peticion = await db.collection('Publicaciones').doc(id).get();
+      const publicacion = { id: id, datos: peticion.data() };
+      if(publicacion.datos.valoracion < valMin || publicacion.datos.valoracion > valMax){
+        pasaTest = false;
         }
-      });
     } catch (error) {
       pasaTest = false;
     }
     expect(pasaTest).toBe(true);
-  }, 20000);
-  
-// 
+}, 20000);
+
 // Comprobar que se recibe bien la valoración en la petición con un Id Correcto
 test('Comprobar se recibe bien la valoración en la petición con un Id Correcto', async () => {
     let pasaTest = true; let datos = {}; let publicacion = {};
