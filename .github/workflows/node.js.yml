@@ -34,7 +34,7 @@ jobs:
         FIREBASE_PRIVATE_KEY:  ${{ secrets.FIREBASE_PRIVATE_KEY }}
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_PRIVATE_KEY }}
       run: |
-        echo "$FIREBASE_PRIVATE_KEY" | base64 --decode > $firebase.json
+        echo "${FIREBASE_PRIVATE_KEY//_/ }" > $firebase.json
         firebase login:ci --project=$FIREBASE_PROJECT_ID --token="${{ env.FIREBASE_TOKEN }}"
         firebase use $FIREBASE_PROJECT_ID --token="${{ env.FIREBASE_TOKEN }}"
         firebase functions:config:get > $firebase.json
