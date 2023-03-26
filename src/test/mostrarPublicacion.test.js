@@ -28,7 +28,7 @@ test('Comprobar se recibe bien la informacion en la peticion con un Id Correcto'
     } catch (error) {
       pasaTest = false;
     }
-    pasaTest = pasaTest && (datos.titulo == publicacion.datos.titulo) && (datos.descripcion == publicacion.datos.descripcion)&& (datos.localizacion == publicacion.datos.localizacion)&& (datos.valoracion == publicacion.datos.valoracion);
+    pasaTest = pasaTest && (datos.titulo == publicacion.datos.titulo) && (datos.descripcion == publicacion.datos.descripcion)&& (datos.localizacion == publicacion.datos.localizacion)&& (datos.imagen == publicacion.datos.imagen);
     expect(pasaTest).toBe(true);
   }, 20000);
 test('Comprobar que no hay errores en la peticion de la informacion con un Id que no existe', async () => {
