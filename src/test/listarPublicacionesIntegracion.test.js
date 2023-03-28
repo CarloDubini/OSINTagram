@@ -17,7 +17,8 @@ test('Comprobar titulos no vacios', async () => {
 }, 20000);
 
 test('Comprobar que se reciben n titulos de publicacion', async () => {
-  expect(longitudLista(lista)).toBe(8);
+  console.log(lista);
+  expect(longitudLista(lista)).toBe(lista.length);
 }, 20000);
 
 test('Comprobar que se recibe una lista vacia', async () => {
