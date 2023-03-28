@@ -19,4 +19,12 @@ function longitudLista(lista){
     return lista.length;
 }
 
-module.exports= {tituloVacio,longitudLista,titulosVacios};
+function obtenerPublicacionPorID(id,lista){ 
+    console.log("Hola");
+    for(let i=0; i<lista.length;i++){
+        if(lista[i].id === id) return lista[i];
+    }
+    console.log("Fin");
+    return "";
+};
+module.exports= {tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID};

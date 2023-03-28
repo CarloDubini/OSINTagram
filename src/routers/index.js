@@ -44,7 +44,6 @@ router.get('/publicacion/:id', async (req,res) =>{
     res.render('publicacion',{publicacion, mensaje}) 
 })
 function mostrarMensajeDeReporte(numeroReportes){
-    console.log('Hola');
     let mensaje = "";
     if(numeroReportes >= 10){
         mensaje = 'Esta publicacion ha sido reportada por varios usuarios y puede ser falsa'
