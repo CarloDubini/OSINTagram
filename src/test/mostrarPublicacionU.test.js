@@ -54,8 +54,7 @@ test('Comprobar se recibe bien la informacion en la peticion con un Id Correcto'
     datos.valoracion =4.3;
     try {
         id = 'IwWoulHSw7v7sxAHdOn5';
-        publicacion = await obtenerPublicacionPorID(id,lista);
-        console.log(publicacion);
+        publicacion = obtenerPublicacionPorID(id,lista);
     } catch (error) {
       pasaTest = false;
     }
@@ -66,7 +65,7 @@ test('Comprobar que no hay errores en la peticion de la informacion con un Id qu
     let pasaTest = true;
     try {
       id = 'IwWoulHSw7v7sxAHdOn1';
-      publicacion = await obtenerPublicacionPorID(id,lista);
+      publicacion = obtenerPublicacionPorID(id,lista);
     } catch (error) {
       pasaTest = false;
     }
@@ -76,7 +75,7 @@ test('Comprobar que se recibe un objeto undefined en la peticion de la informaci
     let pasaTest = true;
     try {
       id = 'IwWoulHSw7v7sxAHdOn1';
-      publicacion = await obtenerPublicacionPorID(id,lista);
+      publicacion = obtenerPublicacionPorID(id,lista);
     } catch (error) {
       pasaTest = false;
     }

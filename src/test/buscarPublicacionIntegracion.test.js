@@ -12,6 +12,7 @@ beforeAll(async () => {
       id: doc.id,
       ...doc.data()
     }));
+    jest.spyOn(console, 'log').mockImplementation(() => {});
 }, 15000);
   
   test('Comprobar que la funcion buscar por palabra clave funciona correctamente', async () =>{
@@ -44,7 +45,9 @@ beforeAll(async () => {
     expect(prueba.lenght).toBe(undefined);
   },10000)
 
-
+  afterAll(() => {
+    console.log.mockRestore();
+  });
 
  
   

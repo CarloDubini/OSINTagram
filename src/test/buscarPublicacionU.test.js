@@ -34,6 +34,7 @@ beforeAll(async () => {
             reportes: 2
         }
       ];
+      jest.spyOn(console, 'log').mockImplementation(() => {});
 }, 15000);
 
   
@@ -66,7 +67,10 @@ beforeAll(async () => {
     prueba= await buscarPorPalabraClave('qqqqqqqqqqqaaaaaaaaaaaaazzzzzzzzzzzzz',lista)
     expect(prueba.lenght).toBe(undefined);
   },10000)
-
+  
+  afterAll(() => {
+    console.log.mockRestore();
+  });
 
 
  
