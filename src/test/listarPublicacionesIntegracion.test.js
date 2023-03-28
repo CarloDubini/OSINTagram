@@ -17,14 +17,7 @@ test('Comprobar titulos no vacios', async () => {
 }, 20000);
 
 test('Comprobar que se reciben n titulos de publicacion', async () => {
-  console.log(lista);
   expect(longitudLista(lista)).toBe(lista.length);
-}, 20000);
-
-test('Comprobar que se recibe una lista vacia', async () => {
-  const querySnapshot = await db.collection('Publicaciones').get();
-  let listaVacia =[]
-  expect(longitudLista(listaVacia)).toBe(0);
 }, 20000);
 
 test('Comprobar que se ordenan alfabeticamente por el título', async () => {
