@@ -75,8 +75,8 @@
             padding: 20px 0;
         }
         button {
-            display: block;
-            margin: auto;
+            /* display: block;
+            margin: auto; */
             padding: 10px 20px;
             font-size: 20px;
             background-color: #007bff;
@@ -119,9 +119,14 @@
         <img src="<%= publicacion.datos.imagen %>" alt="<%= publicacion.datos.titulo %>"/>
         <h3><%= publicacion.datos.localizacion %></h3>
         <p><%= publicacion.datos.descripcion %></p>
-        <button type="submit" class="btn btn-info" onclick="window.history.back()">
-            Volver
-        </button>
+        <div>
+            <button type="submit" class="btn btn-info" onclick="window.history.back()">Volver</button>
+        </div>
+        <div>
+            <form action="<%=publicacion.id%>/reportar">
+                <button id="btnReport" class="btn btn-danger" onclick="desactivarBoton()">Reportar contenido</button>
+            </form>         
+        </div>
     </div>
 </body>
 </html>
