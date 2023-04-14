@@ -62,7 +62,7 @@ button[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
+    float: left;
 }
 
 button[type="submitBuscar"] {
@@ -79,23 +79,16 @@ button[type="submit"]:hover {
     background-color: #0062cc;
 }
 
-#btnReportar{
-    padding: 10px 20px;
-    background-color: #ff1313;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#btnReportar:hover{
-    background-color: #762121;
-}
-
 .valoracion{
     color: yellow;
     margin-top: 22px;
     font-size: 24px;
     font-weight: bold;
+}
+
+#btnReport{
+    float: left;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 490px;
 }

@@ -51,13 +51,19 @@ function mostrarMensajeDeReporte(numeroReportes){
     return mensaje;
 }
 //----------------REPORTAR-------------
-router.get('/reportar/:id', async (req,res) =>{
+router.get('/publicacion/:id/reportar', async (req,res) =>{
 
     let id = req.params.id
     const peticion = await db.collection('Publicaciones').doc(id).get()
     const publicacion = {id:id, datos : peticion.data()}
     
-    res.render('publicacion',{publicacion})
+    // Obtener el valor actual del atributo "reportes"
+    const reportesAnteriores = publicacion.datos.reportes;
+    
+    // Actualizar el valor del atributo "reportes"
+    await db.collection('Publicaciones').doc(id).update({ reportes: reportesAnteriores + 1 });
+
+    res.redirect(`/publicacion/${id}`);
 })
 //----------------BUSCAR POR PALABRA CLAVE-------------
 router.get('/search', async (req,res) =>{
