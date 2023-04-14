@@ -4,6 +4,15 @@ body {
     color: var(--text-color);
     background-color: #0d1117;
 }
+.task-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-list .col-md-6 {
+    width: 100%;
+    max-width: 1200px;
+}
 .card {
     margin-bottom: 10px;
     background-color: #4a4c4f;
@@ -11,7 +20,12 @@ body {
     border: none;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     height: 100px; 
-    width: 650px;
+    max-width: 1200px;
+    display: block; /* agregamos esto */
+}
+
+.card + .card {
+    margin-top: 10px; /* agregamos esto para separar los elementos */
 }
 .card:hover {
     transform: translateY(-3px);
@@ -99,3 +113,61 @@ button[type="submit"]:hover {
     font-size: 24px;
     font-weight: bold;
 }
+
+.stars {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 2em;
+    line-height: 1;
+  }
+  
+  .stars::before {
+    content: "★★★★★";
+    letter-spacing: 3px;
+    color: #f8e483;
+  }
+  
+  .stars[data-rating="0"]::before {
+    content: "☆☆☆☆☆";
+  }
+  
+  .stars[data-rating="0.5"]::before {
+    content: "½☆☆☆☆";
+  }
+  
+  .stars[data-rating="1"]::before {
+    content: "★☆☆☆☆";
+  }
+  
+  .stars[data-rating="1.5"]::before {
+    content: "★½☆☆☆";
+  }
+  
+  .stars[data-rating="2"]::before {
+    content: "★★☆☆☆";
+  }
+  
+  .stars[data-rating="2.5"]::before {
+    content: "★★½☆☆";
+  }
+  
+  .stars[data-rating="3"]::before {
+    content: "★★★☆☆";
+  }
+  
+  .stars[data-rating="3.5"]::before {
+    content: "★★★½☆";
+  }
+  
+  .stars[data-rating="4"]::before {
+    content: "★★★★☆";
+  }
+  
+  .stars[data-rating="4.5"]::before {
+    content: "★★★★½";
+  }
+  
+  .stars[data-rating="5"]::before {
+    content: "★★★★★";
+  }
+  
