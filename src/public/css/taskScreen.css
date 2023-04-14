@@ -63,6 +63,7 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s ease;
     float: left;
+    margin-top: 20px;
 }
 
 button[type="submitBuscar"] {

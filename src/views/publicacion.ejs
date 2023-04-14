@@ -124,16 +124,9 @@
         </div>
         <div>
             <form action="<%=publicacion.id%>/reportar">
-                <button id="btnReport" class="btn btn-danger" onclick="">Reportar contenido</button>
+                <button id="btnReport" class="btn btn-danger" onclick="desactivarBoton()">Reportar contenido</button>
             </form>         
         </div>
-        <script>
-            const myButton = document.getElementById("btnReport");
-            myButton.addEventListener("click", function() {
-                // Deshabilitar el botón después de hacer clic en él
-                myButton.disabled = true;
-            });
-        </script>
     </div>
 </body>
 </html>
