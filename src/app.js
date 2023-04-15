@@ -16,9 +16,9 @@ app.set("view engine", "ejs")
 app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-const {PublicacionRouter} = require('./routers/index.js');
+const {PublicacionRouter} = require('./routers/publicacionRouter.js');
 app.use("/",PublicacionRouter);
-const {UserRouter} = require('./routers/usuario.js');
+const {UserRouter} = require('./routers/usuarioRouter.js');
 app.use("/user",UserRouter);
 app.use(express.static(path.join(__dirname,'public')))
 

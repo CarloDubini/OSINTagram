@@ -97,8 +97,7 @@ PublicacionRouter.post('/crear', async (req,res) =>{
 })
 
 //-----------FUNCIONES VARIAS--------------
+//están en publicacionController.js así que no hace falta ponerlas aquí
 
-//Funciones para comprobar
 
-module.exports = {PublicacionRouter
-};
+module.exports = {PublicacionRouter};
