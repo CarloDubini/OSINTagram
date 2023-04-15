@@ -82,6 +82,24 @@ router.get('/search', async (req,res) =>{
     res.render('main',{taskList: resultado, fotoval:fotoval});
 })
 
+//-----------------CREAR PUBLICACION-----------------
+router.get('/crear', (req,res) =>{
+    res.render('crearPublicacion')
+})
+
+router.post('/crear', async (req,res) =>{
+    const {titulo, localizacion, descripcion, imagen} = req.body;
+    const nuevaPublicacion = {
+        titulo,
+        localizacion,
+        descripcion,
+        imagen,
+        reportes: 0
+    }
+    await db.collection('Publicaciones').add(nuevaPublicacion)
+    res.redirect('/')
+})
+
 //-----------FUNCIONES VARIAS--------------
 async function obtenerDatosPorTitulo(titulo,lista){  
     var encontrado = false;
