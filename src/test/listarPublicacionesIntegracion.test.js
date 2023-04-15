@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {ordenarAlfabeticamente}  = require('OSINTagram/src/routers/index.js');
+const {ordenarAlfabeticamente}  = require('OSINTagram/src/Controller/publicacionController.js');
 const {tituloVacio,longitudLista,titulosVacios} = require('OSINTagram/src/Controller/tests.js')
 
 let lista;

@@ -1,7 +1,7 @@
 const { TestWatcher } = require("jest");
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {mostrarMensajeDeReporte} = require('OSINTagram/src/routers/index.js')
+const {mostrarMensajeDeReporte} = require('OSINTagram/src/Controller/publicacionController.js');
 const {obtenerNumeroReportesPorID } = require('../Controller/tests');
 
 let lista = [];

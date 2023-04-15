@@ -1,7 +1,7 @@
 const { TestWatcher } = require("jest");
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {mostrarMensajeDeReporte} = require('OSINTagram/src/routers/index.js')
+const {mostrarMensajeDeReporte} = require('OSINTagram/src/Controller/publicacionController.js');
 
 test('Comprobar que la funcion de mostrar mensaje de reporte funciona correctamente con valores extraidos de la base de datos', async () => {
     let pasaTest = true;

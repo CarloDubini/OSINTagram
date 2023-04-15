@@ -1,7 +1,7 @@
 const { TestWatcher } = require("jest");
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {buscarPorPalabraClave,ordenarAlfabeticamente} = require('OSINTagram/src/routers/index.js')
+const {buscarPorPalabraClave,ordenarAlfabeticamente} = require('OSINTagram/src/Controller/publicacionController.js');
 
 
 jest.setTimeout(13000);

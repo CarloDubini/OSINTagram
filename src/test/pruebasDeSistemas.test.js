@@ -1,7 +1,7 @@
 const { TestWatcher } = require("jest");
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {buscarPorPalabraClave,mostrarMensajeDeReporte} = require('OSINTagram/src/routers/index.js')
+const {buscarPorPalabraClave,mostrarMensajeDeReporte} = require('OSINTagram/src/Controller/publicacionController.js');
 const {longitudLista,titulosVacios} = require('OSINTagram/src/Controller/tests.js')
 
 let lista = {};

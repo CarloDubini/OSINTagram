@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {ordenarAlfabeticamente}  = require('OSINTagram/src/routers/index.js');
+const {ordenarAlfabeticamente}  = require('OSINTagram/src/Controller/publicacionController.js');
 
 //Mostrar publicacion -> request(pregunta por la publicacion con ese id)
 test('Comprobar no hay errores en la peticion de la informacion con un Id Correcto', async () => {
