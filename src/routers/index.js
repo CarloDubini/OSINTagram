@@ -97,7 +97,7 @@ router.post('/crear', async (req,res) =>{
         reportes: 0
     }
     await db.collection('Publicaciones').add(nuevaPublicacion)
-    res.redirect('/')
+    res.redirect('/publicacion')
 })
 
 //-----------FUNCIONES VARIAS--------------
