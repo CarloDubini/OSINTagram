@@ -1,3 +1,7 @@
+const {Router} = require('express')
+const {db}= require('../firebase')
+
+
 //Vista registrar
 function mostrarMensaje(mensaje) {
     var mensajeDiv = document.getElementById("mensajeRegistro");

@@ -21,22 +21,20 @@ UserRouter.get('/registrar', (req,res) =>{
 })
 
 UserRouter.post('/registrar', async (req,res) =>{
-    const {nombre, nombreUsuario, contraseña, contraseñaIgual} = req.body;
+    const {nombreUsuario, contraseña, contraseñaIgual} = req.body;
     const nuevoUsuario = {
-        nombre,
         nombreUsuario,
         contraseña,
     }
-
-    let mensaje = mostrarMensajeDeContraseñasNoIguales(nuevoUsuario.contraseña, contraseñaIgual)
+    let mensaje = await mostrarMensajeDeContraseñasNoIguales(nuevoUsuario.contraseña, contraseñaIgual)
     if(mensaje == ""){
-        mensaje = mostrarMensajeDeUsuarioYaExiste(nuevoUsuario.nombreUsuario)
+        mensaje = await mostrarMensajeDeUsuarioYaExiste(nuevoUsuario.nombreUsuario)
     }
-
     if(mensaje == ""){
         await db.collection('Usuarios').add(nuevoUsuario)
         mensaje = "Nuevo usuario creado correctamente"
     }
+    console.log(mensaje);
     res.render('registrarUsuario',{mensaje}) 
 })
 
