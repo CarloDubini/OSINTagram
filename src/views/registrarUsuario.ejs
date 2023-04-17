@@ -5,16 +5,100 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/taskScreen.css" media="screen">
 </head>
+<style>
+	body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #333;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            color: #fff;
+        }
+        h1 {
+            font-size: 40px;
+            margin: 0;
+            text-align: center;
+            padding: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 25px;
+            margin: 0;
+            padding: 10px 0;
+            
+        }
+        p {
+            font-size: 20px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px 0;
+        }
+        button {
+            /* display: block;
+            margin: auto; */
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0069d9;
+        }
+		.alert {
+			position: relative;
+			padding: 1em;
+			border-radius: 4px;
+			border: 1px solid #ff0707;
+			background-color: #f8a6a6;
+			color: #0f0b00;
+		}
+
+		.alert-icon {
+			position: absolute;
+			top: 0.5em;
+			left: 0.5em;
+			font-size: 1.5em;
+			line-height: 1;
+			color: #ff0707;
+		}
+		.info {
+			position: relative;
+			padding: 1em;
+			border-radius: 4px;
+			border: 1px solid #07ff0b;
+			background-color: #a6f8bd;
+			color: #0f0b00;
+		}
+
+		.info-icon {
+			position: absolute;
+			top: 0.5em;
+			left: 0.5em;
+			font-size: 1.5em;
+			line-height: 1;
+			color: #03ee3a;
+		}
+</style>
 
 <body>
-	<div class="container mt-4">
-		<h1 style="color: white;" >Registro de Usuario</h1>
+	<div class="container">
+		<h1 style="color: white;">Registro de Usuario</h1>
 		<form action="/user/registrar" method="post">
-			<!-- <label for="nombre">Nombre:</label>
-			<input type="text" id="nombre" name="nombre" required><br><br> -->
-			
-			<!-- Según Embid el nombre no hace falta -->
-			<!-- Añadir un mensaje como el de mostrar aviso de reporte cuando se ha registrado bien o cuando ha ocurrido algo -->
+
 			<div class="form-group">
 			<label style="color: white;" for="nombreUsuario">Nombre de Usuario:</label>
 			<input type="text" id="nombreUsuario" name="nombreUsuario" required><br><br>
@@ -34,10 +118,22 @@
 			</div>
 		</form>
 
-		<script src="/js/userController.js"></script>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
+		<% if (mensaje === 'Nuevo usuario creado correctamente') { %>
+			<div class="info info-warning">
+				<span class="info-icon">&#9888;</span>
+				<p><%= mensaje %></p>
+			</div>
+		<% } %>
+		<% if (mensaje === 'La contraseña tiene que coincidir en ambos campos' || mensaje === 'El nombre de usuario elegido ya existe') { %>
+				<div class="alert alert-warning">
+					<span class="alert-icon">&#9888;</span>
+					<p><%= mensaje %></p>
+				</div>
+		<% } %>
 	</div>
+	<script src="/js/userController.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
 </body>
 </html>
