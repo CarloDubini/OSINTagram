@@ -1,30 +1,44 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Registro de Usuario</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/taskScreen.css" media="screen">
 </head>
+
 <body>
-	<h1>Registro de Usuario</h1>
-    <ul><li><a href="/user/registrar">Registro de usuario</a></li></ul>
-	<form action="/user/registrar" method="post">
-		<!-- <label for="nombre">Nombre:</label>
-		<input type="text" id="nombre" name="nombre" required><br><br> -->
+	<div class="container mt-4">
+		<h1 style="color: white;" >Registro de Usuario</h1>
+		<ul><li><a href="/user/registrar">Registro de usuario</a></li></ul>
+		<form action="/user/registrar" method="post">
+			<!-- <label for="nombre">Nombre:</label>
+			<input type="text" id="nombre" name="nombre" required><br><br> -->
+			
+			<!-- Según Embid el nombre no hace falta -->
+			<!-- Añadir un mensaje como el de mostrar aviso de reporte cuando se ha registrado bien o cuando ha ocurrido algo -->
+			<div class="form-group">
+			<label style="color: white;" for="nombreUsuario">Nombre de Usuario:</label>
+			<input type="text" id="nombreUsuario" name="nombreUsuario" required><br><br>
+			
+
 		
-		<!-- Según Embid el nombre no hace falta -->
-		<!-- Añadir un mensaje como el de mostrar aviso de reporte cuando se ha registrado bien o cuando ha ocurrido algo -->
+			<label style="color: white;" for="contraseña">Contraseña:</label>
+			<input type="password" id="contraseña" name="contraseña" required><br><br>
+		
 
-		<label for="nombreUsuario">Nombre de Usuario:</label>
-		<input type="text" id="nombreUsuario" name="nombreUsuario" required><br><br>
+		
+			<label style="color: white;" for="contraseñaIgual">Confirmar Contraseña:</label>
+			<input type="password" id="contraseñaIgual" name="contraseñaIgual" required><br><br>
+			
+			
+			<button type="submit">Registrarse</button>
+			</div>
+		</form>
 
-		<label for="contraseña">Contraseña:</label>
-		<input type="password" id="contraseña" name="contraseña" required><br><br>
-
-		<label for="contraseñaIgual">Confirmar Contraseña:</label>
-		<input type="password" id="contraseñaIgual" name="contraseñaIgual" required><br><br>
-
-		<button type="submit">Registrarse</button>
-	</form>
-
-    <script src="/js/userController.js"></script>
+		<script src="/js/userController.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
+	</div>
 </body>
 </html>
