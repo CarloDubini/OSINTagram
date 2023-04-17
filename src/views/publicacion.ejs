@@ -123,9 +123,26 @@
             <button type="submit" class="btn btn-info" onclick="window.history.back()">Volver</button>
         </div>
         <div>
-            <form action="<%=publicacion.id%>/reportar">
-                <button id="btnReport" class="btn btn-danger" onclick="desactivarBoton()">Reportar contenido</button>
-            </form>         
+            <form id="formReportar" action="<%=publicacion.id%>/reportar">
+                <button id="btnReport" class="btn btn-danger">Reportar contenido</button>
+                <script>
+                    const formReportar = document.getElementById("formReportar");
+                    formReportar.addEventListener("submit", function(event) {
+                        event.preventDefault();
+                        const xhr = new XMLHttpRequest();
+                        xhr.open(formReportar.method, formReportar.action);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.onload = function() {
+                            if (xhr.status === 200) {
+                                document.getElementById("btnReport").disabled = true;
+                            } else {
+                                console.log("Ha habido un error.");
+                            }
+                        };
+                        xhr.send(new FormData(formReportar));
+                    });
+                </script>
+            </form>          
         </div>
     </div>
 </body>
