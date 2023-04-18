@@ -37,6 +37,39 @@
               <div class="row">
                 <div class="col-8">
                   <p class="task-name"><%= task.titulo %></p>
+=======
+        <h1 class="mt-3 mb-3"id="titulo-publicaciones">PUBLICACIONES</h1>
+        <form action="/user/registrar">
+          <button type="Registrarse" class="btn btn-info">Registrate</button>
+        </form>
+        <form action="/user/login">
+          <button type="IniciarSesion" class="btn btn-info">Iniciar Sesion</button>
+        </form>
+        <form action="/search">
+            <input type="text" placeholder="Buscar..." name="searchInput">
+            <button type="submitBuscar" class="btn btn-info">BUSCAR</button>
+        </form>
+        <div class="row justify-content-center task-list">
+            <% taskList.forEach(task => { %>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-8">
+                                  <p class="task-name"><%= task.titulo %></p>
+                                </div>
+                                <div class="col-2">
+                                  <form action="publicacion/<%=task.id %>">
+                                    <button type="submit" class="btn btn-info">VER</button>
+                                  </form> 
+                                </div>
+                                <div class="col-2">
+                                  <div class="stars" data-rating="<%= Math.round(task.valoracion * 2) / 2 %>"></div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+>>>>>>> a1d2ddd0a6a6ab8f736c65450618cbe0a2d065c8
                 </div>
                 <div class="col-2">
                   <form action="publicacion/<%=task.id %>">

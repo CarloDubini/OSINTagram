@@ -51,5 +51,25 @@ UserRouter.post("/registrar", async (req, res) => {
 UserRouter.get("/login", async (req, res) => {
   res.redirect("iniciarSesion");
 });
+UserRouter.post("/registrar", async (req, res) => {
+  const { nombreUsuario, contraseña, contraseñaIgual } = req.body;
+  const nuevoUsuario = {
+    nombreUsuario,
+    contraseña,
+  };
+  let mensaje = await mostrarMensajeDeContraseñasNoIguales(
+    nuevoUsuario.contraseña,
+    contraseñaIgual
+  );
+  if (mensaje == "") {
+    mensaje = await mostrarMensajeDeUsuarioYaExiste(nuevoUsuario.nombreUsuario);
+  }
+  if (mensaje == "") {
+    await db.collection("Usuarios").add(nuevoUsuario);
+    mensaje = "Nuevo usuario creado correctamente";
+  }
+  console.log(mensaje);
+  res.render("registrarUsuario", { mensaje });
+});
 
 module.exports = { UserRouter };
