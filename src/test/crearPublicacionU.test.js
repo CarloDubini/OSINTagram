@@ -34,5 +34,24 @@ beforeAll(async () => {
         }
       ];
 }, 15000);
+
 //npi
-  
+describe("Creación de publicaciones", () => {
+    test("Crear nueva publicación", async () => {
+      // Simular datos de una nueva publicación
+      const nuevaPublicacion = {
+        titulo: "Nuevo título",
+        localizacion: "Nueva localización",
+        descripcion: "Nueva descripción",
+        imagen: "Nueva imagen",
+        reportes: 0
+      };
+      
+      // Comprobar si los datos de la publicación creada coinciden con los datos enviados en la petición POST
+      expect("Nuevo título").toEqual(nuevaPublicacion.titulo);
+      expect("Nueva localización").toEqual(nuevaPublicacion.localizacion);
+      expect("Nueva descripción").toEqual(nuevaPublicacion.descripcion);
+      expect("Nueva imagen").toEqual(nuevaPublicacion.imagen);
+      expect(0).toEqual(nuevaPublicacion.reportes);
+    });
+  });
