@@ -20,34 +20,6 @@ UserRouter.get("/user/:id", async (req, res) => {
 });
 
 //-----------------REGISTRAR USUARIO-----------------
-UserRouter.get("/registrar", (req, res) => {
-  let mensaje = "";
-  res.render("registrarUsuario", { mensaje });
-});
-
-UserRouter.post("/registrar", async (req, res) => {
-  const { nombre, nombreUsuario, contraseña, contraseñaIgual } = req.body;
-  const nuevoUsuario = {
-    nombre,
-    nombreUsuario,
-    contraseña,
-  };
-
-  let mensaje = mostrarMensajeDeContraseñasNoIguales(
-    nuevoUsuario.contraseña,
-    contraseñaIgual
-  );
-  if (mensaje == "") {
-    mensaje = mostrarMensajeDeUsuarioYaExiste(nuevoUsuario.nombreUsuario);
-  }
-
-  if (mensaje == "") {
-    await db.collection("Usuarios").add(nuevoUsuario);
-    mensaje = "Nuevo usuario creado correctamente";
-  }
-  res.render("registrarUsuario", { mensaje });
-});
-
 UserRouter.post("/registrar", async (req, res) => {
   const { nombreUsuario, contraseña, contraseñaIgual } = req.body;
   const nuevoUsuario = {

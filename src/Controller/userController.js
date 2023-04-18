@@ -1,4 +1,5 @@
 "use strict";
+const { Router } = require("express");
 const { db } = require("../firebase");
 
 //Vista registrar
@@ -26,8 +27,8 @@ async function mostrarMensajeDeUsuarioYaExiste(nombreUsuario) {
 
   lista.forEach((elemento) => {
     if (elemento.nombreUsuario) {
-      insensibilizador1 = elemento.nombreUsuario.toUpperCase();
-      insensibilizador2 = nombreUsuario.toUpperCase();
+      let insensibilizador1 = elemento.nombreUsuario.toUpperCase();
+      let insensibilizador2 = nombreUsuario.toUpperCase();
       if (insensibilizador1 == insensibilizador2) {
         existe = true;
       }
