@@ -103,6 +103,11 @@ PublicacionRouter.post("/crear", async (req, res) => {
   res.redirect("/publicacion");
 });
 
+//-----------------LOGIN USUARIO-----------------
+PublicacionRouter.get("/login", async (req, res) => {
+  res.render("iniciarSesion");
+});
+
 //-----------FUNCIONES VARIAS--------------
 //están en publicacionController.js así que no hace falta ponerlas aquí
 

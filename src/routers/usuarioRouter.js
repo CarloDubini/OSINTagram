@@ -47,10 +47,7 @@ UserRouter.post("/registrar", async (req, res) => {
   }
   res.render("registrarUsuario", { mensaje });
 });
-//-----------------LOGIN USUARIO-----------------
-UserRouter.get("/login", async (req, res) => {
-  res.redirect("iniciarSesion");
-});
+
 UserRouter.post("/registrar", async (req, res) => {
   const { nombreUsuario, contraseña, contraseñaIgual } = req.body;
   const nuevoUsuario = {
@@ -71,5 +68,10 @@ UserRouter.post("/registrar", async (req, res) => {
   console.log(mensaje);
   res.render("registrarUsuario", { mensaje });
 });
+
+//-----------------LOGIN USUARIO-----------------
+// UserRouter.get("/login", async (req, res) => {
+//   res.render("iniciarSesion");
+// });
 
 module.exports = { UserRouter };
