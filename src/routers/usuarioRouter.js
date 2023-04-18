@@ -46,7 +46,7 @@ UserRouter.get("/registrar", async (req, res) => {
 // console.log(mensaje);
 // res.render("registrarUsuario", { mensaje });
 UserRouter.post("/registrar", async (req, res) => {
-  const email = req.body.nombreUsuario;
+  const email = req.body.email;
   const password = req.body.contraseña;
 
   const auth = getAuth(); // Obtener la instancia de autenticación de Firebase Admin SDK
@@ -78,7 +78,7 @@ UserRouter.get("/login", async (req, res) => {
   res.render("iniciarSesion");
 });
 UserRouter.post("/login", async (req, res) => {
-  const email = req.body.nombreUsuario;
+  const email = req.body.email;
   const password = req.body.contraseña;
 
   const firebaseAuth = auth; // Obtener la instancia de autenticación de Firebase Admin SDK
