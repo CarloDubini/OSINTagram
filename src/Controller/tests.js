@@ -37,4 +37,13 @@ function obtenerNumeroReportesPorID(id,lista){
     }
     return "";
 };
-module.exports= {tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID};
+function aumentarNumeroReportesPorID(id,lista){
+    for(let i=0; i<lista.length;i++){
+        if(lista[i].id === id) {
+            lista[i].reportes = lista[i].reportes + 1;
+            return lista[i].reportes;
+        } 
+    }
+    return "";
+}
+module.exports= {tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID};
