@@ -69,9 +69,9 @@ UserRouter.post("/registrar", async (req, res) => {
   res.render("registrarUsuario", { mensaje });
 });
 
-//-----------------LOGIN USUARIO-----------------
-// UserRouter.get("/login", async (req, res) => {
-//   res.render("iniciarSesion");
-// });
+// -----------------LOGIN USUARIO-----------------
+UserRouter.get("/login", async (req, res) => {
+  res.render("iniciarSesion");
+});
 
 module.exports = { UserRouter };

@@ -1,4 +1,5 @@
 "use strict";
+const { db } = require("../firebase");
 
 //Vista registrar
 function mostrarMensaje(mensaje) {
