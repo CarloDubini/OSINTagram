@@ -75,7 +75,8 @@ UserRouter.post("/registrar", async (req, res) => {
 });
 // -----------------LOGIN USUARIO-----------------
 UserRouter.get("/login", async (req, res) => {
-  res.render("iniciarSesion");
+  let mensaje = "";
+  res.render("iniciarSesion", { mensaje });
 });
 UserRouter.post("/login", async (req, res) => {
   const email = req.body.email;
