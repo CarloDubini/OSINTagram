@@ -36,6 +36,14 @@ initializeApp({
 const db = getFirestore();
 const auth = getAuth();
 
+// auth.useDeviceLanguage();
+// auth.settings.appVerificationDisabledForTesting = true;
+// auth.settings.recaptchaParameters = {
+//   size: "invisible",
+//   sitekey: "<your-site-key>",
+//   callback: () => {},
+// };
+
 module.exports = {
   db,
   auth,
