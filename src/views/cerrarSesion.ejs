@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/taskScreen.css" media="screen" />
+    <title>Cerrar sesión</title>
+    <style>
+      /* Estilos para la vista oscura */
+      body {
+        background-color: #1c1c1c;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        margin-right: 600px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        max-width: 400px;
+      }
+      input[type="text"],
+      input[type="password"] {
+        background-color: #404040;
+        color: #fff;
+        border: 2px solid #666;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border-radius: 4px;
+      }
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      h1 {
+        margin-top: 0;
+        margin-bottom: 50px;
+      }
+      button {
+        /* display: block;
+			margin: auto; */
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0069d9;
+      }
+      .alert {
+        position: relative;
+        padding: 1em;
+        border-radius: 4px;
+        border: 1px solid #ff0707;
+        background-color: #f8a6a6;
+        color: #0f0b00;
+      }
+
+      .alert-icon {
+        position: absolute;
+        top: 0.5em;
+        left: 0.5em;
+        font-size: 1.5em;
+        line-height: 1;
+        color: #ff0707;
+      }
+      .info {
+        position: relative;
+        padding: 1em;
+        border-radius: 4px;
+        border: 1px solid #07ff0b;
+        background-color: #a6f8bd;
+        color: #0f0b00;
+      }
+
+      .info-icon {
+        position: absolute;
+        top: 0.5em;
+        left: 0.5em;
+        font-size: 1.5em;
+        line-height: 1;
+        color: #03ee3a;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/user/logout" method="post">
+      <h1>Cerrar Sesion</h1>
+      <label for="nombreUsuario">Nombre de usuario:</label>
+      <input type="text" id="nombreUsuario" name="nombreUsuario" required />
+      <label for="contraseña">Contraseña:</label>
+      <input type="password" id="contraseña" name="contraseña" required />
+      <input type="submit" value="Cerrar sesión" />
+    </form>
+  </body>
+  <script src="/js/userController.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</html>

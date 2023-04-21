@@ -104,4 +104,39 @@ UserRouter.post("/login", async (req, res) => {
   }
 });
 // -----------------CIERRE SESION-----------------
+UserRouter.get("/logout", async (req, res) => {
+  let mensaje = "";
+  res.render("cerrarSesion", { mensaje });
+});
+UserRouter.post("/logout", async (req, res) => {
+  const { nombreUsuario, contraseña } = req.body;
+  // Validar que se hayan recibido los datos necesarios
+  if (!nombreUsuario || !contraseña) {
+    return res.status(400).json({ error: "Faltan datos requeridos" });
+  }
+
+  try {
+    // Buscar el usuario por nombre de usuario y contraseña
+    const userDocs = await db
+      .collection("Usuarios")
+      .where("nombreUsuario", "==", nombreUsuario)
+      .where("contraseña", "==", contraseña)
+      .get();
+
+    if (userDocs.empty) {
+      // Si no se encontró el usuario, retornar un error
+      return res
+        .status(401)
+        .json({ error: "Nombre de usuario o contraseña incorrectos" });
+    } else {
+      // Actualizar el valor de "logeado" a 0
+      const userId = userDocs.docs[0].id;
+      await db.collection("Usuarios").doc(userId).update({ logeado: 0 });
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.error("Error al buscar usuario:", error);
+    return res.status(500).json({ error: "Error al buscar usuario" });
+  }
+});
 module.exports = { UserRouter };
