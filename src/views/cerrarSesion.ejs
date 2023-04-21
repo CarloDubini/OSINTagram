@@ -18,7 +18,6 @@
         align-items: center;
         height: 100vh;
         margin: 0;
-        margin-right: 600px;
       }
 
       form {
@@ -66,22 +65,24 @@
         background-color: #0069d9;
       }
       .alert {
-        position: relative;
-        padding: 1em;
-        border-radius: 4px;
-        border: 1px solid #ff0707;
-        background-color: #f8a6a6;
-        color: #0f0b00;
-      }
+			position: relative;
+			padding: 1em;
+			border-radius: 4px;
+			border: 1px solid #ff0707;
+			background-color: #f8a6a6;
+			color: #0f0b00;
+			width: 350px;
+		}
 
-      .alert-icon {
-        position: absolute;
-        top: 0.5em;
-        left: 0.5em;
-        font-size: 1.5em;
-        line-height: 1;
-        color: #ff0707;
-      }
+		.alert-icon {
+			position: absolute;
+			top: 0.5em;
+			left: 0.5em;
+			font-size: 1.5em;
+			line-height: 1;
+			color: #ff0707;
+			margin-top: 30px;
+		}
       .info {
         position: relative;
         padding: 1em;
@@ -103,12 +104,13 @@
   </head>
   <body>
     <form action="/user/logout" method="post">
-      <h1>Cerrar Sesion</h1>
+      <h1>Cerrar Sesión</h1>
       <label for="nombreUsuario">Nombre de usuario:</label>
       <input type="text" id="nombreUsuario" name="nombreUsuario" required />
       <label for="contraseña">Contraseña:</label>
       <input type="password" id="contraseña" name="contraseña" required />
       <input type="submit" value="Cerrar sesión" />
+      <button type="submit" class="btn btn-info" onclick="window.history.back()">Volver</button>
     </form>
   </body>
   <script src="/js/userController.js"></script>

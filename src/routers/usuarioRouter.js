@@ -75,8 +75,9 @@ UserRouter.get("/login", async (req, res) => {
 UserRouter.post("/login", async (req, res) => {
   const { nombreUsuario, contraseña } = req.body;
   // Validar que se hayan recibido los datos necesarios
+  let mensaje = "";
   if (!nombreUsuario || !contraseña) {
-    return res.status(400).json({ error: "Faltan datos requeridos" });
+    mensaje = "Faltan datos requeridos";
   }
 
   try {
@@ -89,9 +90,8 @@ UserRouter.post("/login", async (req, res) => {
 
     if (userDocs.empty) {
       // Si no se encontró el usuario, retornar un error
-      return res
-        .status(401)
-        .json({ error: "Nombre de usuario o contraseña incorrectos" });
+      mensaje = "Nombre de usuario o contraseña incorrectos";
+      res.render("iniciarSesion", { mensaje });
     } else {
       // Actualizar el valor de "logeado" a 1 para el usuario que ha iniciado sesión
       const userId = userDocs.docs[0].id;
@@ -99,8 +99,7 @@ UserRouter.post("/login", async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
-    console.error("Error al buscar usuario:", error);
-    return res.status(500).json({ error: "Error al buscar usuario" });
+    
   }
 });
 // -----------------CIERRE SESION-----------------
