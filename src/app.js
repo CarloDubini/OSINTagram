@@ -28,10 +28,3 @@ app.listen(port, (err) => {
     console.log(`Servidor arrancado en el puerto ${port}`);
   }
 });
-
-window.addEventListener("beforeunload", function () {
-  // Actualizar el valor de "logeado" a 0 para el usuario que ha cerrado la sesión
-  fetch("/logout", {
-    method: "POST",
-  });
-});
