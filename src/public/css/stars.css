@@ -3,6 +3,7 @@
     vertical-align: middle;
     font-size: 2em;
     line-height: 1;
+    margin-top: 20px;
   }
   
 .stars::before {

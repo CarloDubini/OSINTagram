@@ -69,11 +69,11 @@ UserRouter.post("/registrar", async (req, res) => {
 });
 // -----------------LOGIN USUARIO-----------------
 UserRouter.get("/login", async (req, res) => {
-  res.render("iniciarSesion");
+  let mensaje = "";
+  res.render("iniciarSesion", { mensaje });
 });
 UserRouter.post("/login", async (req, res) => {
   const { nombreUsuario, contraseña } = req.body;
-
   // Validar que se hayan recibido los datos necesarios
   if (!nombreUsuario || !contraseña) {
     return res.status(400).json({ error: "Faltan datos requeridos" });
