@@ -18,16 +18,11 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-
-
 // Rutas
 const { PublicacionRouter } = require("./routers/publicacionRouter.js");
 app.use("/", PublicacionRouter);
 const { UserRouter } = require("./routers/usuarioRouter.js");
 app.use("/user", UserRouter);
-
-
-
 
 // app.use(
 //   session({

@@ -9,9 +9,8 @@ const {
   pruebaDatosPorTítulo,
   pruebaBusquedaPorPalabraClave,
   mostrarMensajeDeReporte,
-  criteriosCrearPublicacion
+  criteriosCrearPublicacion,
 } = require("../Controller/publicacionController.js");
-
 
 // esto es para que se pueda subir imagenes
 const storage = multer.diskStorage({
@@ -24,11 +23,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-
 const PublicacionRouter = Router();
 
 //-------------------GETTS y POSTS---------------
 PublicacionRouter.get("/", async (req, res) => {
+  if (!req.cookies.sesion) {
+    res.cookie("sesion", "false");
+    res.cookie("nombreUser", "anonimo");
+  }
   const querySnapshot = await db.collection("Publicaciones").get();
   const lista = querySnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -102,15 +104,19 @@ PublicacionRouter.get("/search", async (req, res) => {
 
 //-----------------CREAR PUBLICACION-----------------
 PublicacionRouter.get("/crear", (req, res) => {
-  res.render("crearPublicacion", {m:0, mensajes:null});
+  res.render("crearPublicacion", { m: 0, mensajes: null });
 });
 
 PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
   const { titulo, descripcion, direccion } = req.body;
   const imagenFile = req.file;
-  const {mensajes, error} = await criteriosCrearPublicacion(titulo, descripcion, direccion);
-  
-  if(!error){
+  const { mensajes, error } = await criteriosCrearPublicacion(
+    titulo,
+    descripcion,
+    direccion
+  );
+
+  if (!error) {
     // Subir la imagen a Firebase Storage. Firebase = require("firebase-auth")
     const bucket = firebaseAdmin.storage().bucket();
     await bucket.upload(imagenFile.path, {
@@ -127,18 +133,16 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
       descripcion: descripcion,
       localizacion: direccion,
       imagen: imagenUrl,
-      reportes:0,
-      valoracion:-1
+      reportes: 0,
+      valoracion: -1,
     });
     //quiero obtener la id de la nueva publicación
     const id = publicacionRef.id;
     res.redirect(`/publicacion/${id}`);
-  } 
-  else{ 
-    res.render("crearPublicacion", {m:1, mensajes:mensajes})
+  } else {
+    res.render("crearPublicacion", { m: 1, mensajes: mensajes });
   }
 });
-
 
 //-----------FUNCIONES VARIAS--------------
 //están en publicacionController.js así que no hace falta ponerlas aquí

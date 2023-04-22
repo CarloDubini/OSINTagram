@@ -21,7 +21,9 @@ UserRouter.get("/user/:id", async (req, res) => {
   console.log(usuario);
   res.render("user", { usuario });
 });
-
+UserRouter.get("/", async (req, res) => {
+  res.redirect("/login");
+});
 //-----------------REGISTRAR USUARIO-----------------
 UserRouter.get("/registrar", async (req, res) => {
   const mensaje = "Nuevo ";
@@ -101,14 +103,23 @@ UserRouter.post("/login", async (req, res) => {
 
       // Establecer la cookie de sesión
       res.cookie("sesion", "true");
+      res.cookie("nombreUser", nombreUsuario);
 
       res.redirect("/");
     }
   } catch (error) {}
 });
+// UserRouter.get("/nologin", async (req, res) => {
+//   let mensaje = "";
+//   res.cookie("sesion", "false");
+
+//   res.redirect("/");
+// });
 // -----------------CIERRE SESION-----------------
 UserRouter.get("/logout", async (req, res) => {
   let mensaje = "";
+  res.cookie("nombreUser", "anonimo");
+  res.cookie("sesion", "false");
   res.render("cerrarSesion", { mensaje });
 });
 UserRouter.post("/logout", async (req, res) => {
