@@ -73,6 +73,7 @@ UserRouter.get("/login", async (req, res) => {
   res.render("iniciarSesion", { mensaje });
 });
 UserRouter.post("/login", async (req, res) => {
+  console.log("OLAAA");
   const { nombreUsuario, contraseña } = req.body;
   // Validar que se hayan recibido los datos necesarios
   let mensaje = "";
@@ -96,11 +97,14 @@ UserRouter.post("/login", async (req, res) => {
       // Actualizar el valor de "logeado" a 1 para el usuario que ha iniciado sesión
       const userId = userDocs.docs[0].id;
       await db.collection("Usuarios").doc(userId).update({ logeado: 1 });
+      console.log("entro");
+
+      // Establecer la cookie de sesión
+      res.cookie("sesion", "true");
+
       res.redirect("/");
     }
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 });
 // -----------------CIERRE SESION-----------------
 UserRouter.get("/logout", async (req, res) => {
@@ -131,6 +135,7 @@ UserRouter.post("/logout", async (req, res) => {
       // Actualizar el valor de "logeado" a 0
       const userId = userDocs.docs[0].id;
       await db.collection("Usuarios").doc(userId).update({ logeado: 0 });
+      res.cookie("sesion", "false");
       res.redirect("/");
     }
   } catch (error) {
