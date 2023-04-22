@@ -95,6 +95,35 @@ function mostrarMensajeDeReporte(numeroReportes){
     return mensaje;
 }
 
+async function criteriosCrearPublicacion(titulo, descripcion, direccion){
+   let error=false;
+   let mensajes=[];
+   let mensaje;
+   if(!/\w/.test(titulo)){
+        error=true;
+        mensaje="El titulo Debe contener al menos un caracter alfanumerico";
+        mensajes.push(mensaje);
+   }
+   if(!/\w/.test(descripcion)){
+        error=true;
+        mensaje="La descripcion Debe contener al menos un caracter alfanumerico";
+        mensajes.push(mensaje);
+   }
+    if(!/\w/.test(direccion)){
+        error=true;
+        mensaje="La direccion Debe contener al menos un caracter alfanumerico";
+        mensajes.push(mensaje);
+    }
+    if(descripcion.length>200){
+        error=true;
+        mensaje="La descripcion no puede tener mas de 200 caracteres";
+        mensajes.push(mensaje);
+    }
+
+    return {mensajes,error};
+    
+    
+}
 
 module.exports = {ordenarAlfabeticamente,
     mostrarMensaje,
@@ -102,4 +131,6 @@ module.exports = {ordenarAlfabeticamente,
     obtenerDatosPorTitulo,
     pruebaDatosPorTítulo,
     pruebaBusquedaPorPalabraClave,
-    mostrarMensajeDeReporte}
+    mostrarMensajeDeReporte,
+    criteriosCrearPublicacion
+}

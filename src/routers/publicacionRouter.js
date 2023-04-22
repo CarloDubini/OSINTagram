@@ -9,6 +9,7 @@ const {
   pruebaDatosPorTítulo,
   pruebaBusquedaPorPalabraClave,
   mostrarMensajeDeReporte,
+  criteriosCrearPublicacion
 } = require("../Controller/publicacionController.js");
 
 
@@ -101,35 +102,41 @@ PublicacionRouter.get("/search", async (req, res) => {
 
 //-----------------CREAR PUBLICACION-----------------
 PublicacionRouter.get("/crear", (req, res) => {
-  res.render("crearPublicacion");
+  res.render("crearPublicacion", {m:0, mensajes:null});
 });
 
 PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
   const { titulo, descripcion, direccion } = req.body;
   const imagenFile = req.file;
-
-  // Subir la imagen a Firebase Storage. Firebase = require("firebase-auth")
-  const bucket = firebaseAdmin.storage().bucket();
-   await bucket.upload(imagenFile.path, {
-    metadata: {
+  const {mensajes, error} = await criteriosCrearPublicacion(titulo, descripcion, direccion);
+  
+  if(!error){
+    // Subir la imagen a Firebase Storage. Firebase = require("firebase-auth")
+    const bucket = firebaseAdmin.storage().bucket();
+    await bucket.upload(imagenFile.path, {
       metadata: {
-        contentType: imagenFile.mimetype,
+        metadata: {
+          contentType: imagenFile.mimetype,
+        },
       },
-    },
-  });
-  const imagenUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${imagenFile.filename}?alt=media`;
-  // Guardar la publicación en Firestore
-  const publicacionRef = await db.collection("Publicaciones").add({
-    titulo: titulo,
-    descripcion: descripcion,
-    localizacion: direccion,
-    imagen: imagenUrl,
-    reportes:0,
-    valoracion:-1
-  });
-  //quiero obtener la id de la nueva publicación
-  const id = publicacionRef.id;
-  res.redirect(`/publicacion/${id}`);
+    });
+    const imagenUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${imagenFile.filename}?alt=media`;
+    // Guardar la publicación en Firestore
+    const publicacionRef = await db.collection("Publicaciones").add({
+      titulo: titulo,
+      descripcion: descripcion,
+      localizacion: direccion,
+      imagen: imagenUrl,
+      reportes:0,
+      valoracion:-1
+    });
+    //quiero obtener la id de la nueva publicación
+    const id = publicacionRef.id;
+    res.redirect(`/publicacion/${id}`);
+  } 
+  else{ 
+    res.render("crearPublicacion", {m:1, mensajes:mensajes})
+  }
 });
 
 
