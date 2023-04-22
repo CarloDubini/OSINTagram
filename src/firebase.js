@@ -16,6 +16,7 @@
 //   auth,
 // };
 require("dotenv").config();
+const firebaseAdmin = require("firebase-admin");
 const { initializeApp, applicationDefault } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const { getAuth } = require("firebase-admin/auth");
@@ -31,8 +32,8 @@ const { createUserWithEmailAndPassword } = require("firebase/auth");
 
 initializeApp({
   credential: applicationDefault(),
+  storageBucket: 'osintagram-be0cd.appspot.com'
 });
-
 const db = getFirestore();
 const auth = getAuth();
 
@@ -47,6 +48,7 @@ const auth = getAuth();
 module.exports = {
   db,
   auth,
+  firebaseAdmin,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 };

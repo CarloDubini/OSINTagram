@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const { db } = require("../firebase");
+const { db, firebaseAdmin } = require("../firebase");
+const multer = require("multer");
 const {
   ordenarAlfabeticamente,
   mostrarMensaje,
@@ -9,6 +10,19 @@ const {
   pruebaBusquedaPorPalabraClave,
   mostrarMensajeDeReporte,
 } = require("../Controller/publicacionController.js");
+
+
+// esto es para que se pueda subir imagenes
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+
 
 const PublicacionRouter = Router();
 
@@ -90,18 +104,34 @@ PublicacionRouter.get("/crear", (req, res) => {
   res.render("crearPublicacion");
 });
 
-PublicacionRouter.post("/crear", async (req, res) => {
-  const { titulo, localizacion, descripcion, imagen } = req.body;
-  const nuevaPublicacion = {
-    titulo,
-    localizacion,
-    descripcion,
-    imagen,
-    reportes: 0,
-  };
-  await db.collection("Publicaciones").add(nuevaPublicacion);
-  res.redirect("/publicacion");
+PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
+  const { titulo, descripcion, direccion } = req.body;
+  const imagenFile = req.file;
+
+  // Subir la imagen a Firebase Storage. Firebase = require("firebase-auth")
+  const bucket = firebaseAdmin.storage().bucket();
+   await bucket.upload(imagenFile.path, {
+    metadata: {
+      metadata: {
+        contentType: imagenFile.mimetype,
+      },
+    },
+  });
+  const imagenUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${imagenFile.filename}?alt=media`;
+  // Guardar la publicación en Firestore
+  const publicacionRef = await db.collection("Publicaciones").add({
+    titulo: titulo,
+    descripcion: descripcion,
+    localizacion: direccion,
+    imagen: imagenUrl,
+    reportes:0,
+    valoracion:-1
+  });
+  //quiero obtener la id de la nueva publicación
+  const id = publicacionRef.id;
+  res.redirect(`/publicacion/${id}`);
 });
+
 
 //-----------FUNCIONES VARIAS--------------
 //están en publicacionController.js así que no hace falta ponerlas aquí
