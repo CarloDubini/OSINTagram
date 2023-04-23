@@ -13,6 +13,26 @@ body {
     width: 100%;
     max-width: 1200px;
 }
+
+.user-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.username {
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+
 .card {
     margin-bottom: 10px;
     background-color: #4a4c4f;
@@ -116,3 +136,4 @@ button[type="submit"]:hover {
   letter-spacing: 2px;
   margin-left: 20px;
 }
+

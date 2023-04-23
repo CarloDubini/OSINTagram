@@ -16,40 +16,20 @@
     content: "☆☆☆☆☆";
 }
 
-.stars[data-rating="0.5"]::before {
-    content: "½☆☆☆☆";
-}
-
 .stars[data-rating="1"]::before {
     content: "★☆☆☆☆";
-}
-
-.stars[data-rating="1.5"]::before {
-    content: "★½☆☆☆";
 }
 
 .stars[data-rating="2"]::before {
     content: "★★☆☆☆";
 }
 
-.stars[data-rating="2.5"]::before {
-    content: "★★½☆☆";
-}
-
 .stars[data-rating="3"]::before {
     content: "★★★☆☆";
 }
 
-.stars[data-rating="3.5"]::before {
-    content: "★★★½☆";
-}
-
 .stars[data-rating="4"]::before {
     content: "★★★★☆";
-}
-
-.stars[data-rating="4.5"]::before {
-    content: "★★★★½";
 }
 
 .stars[data-rating="5"]::before {

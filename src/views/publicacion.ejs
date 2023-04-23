@@ -109,7 +109,11 @@
     </style>
 </head>
 <body>
-    <div class="container">       
+    <div class="container">
+        <div class="user-container">
+            <img src="https://firebasestorage.googleapis.com/v0/b/osintagram-be0cd.appspot.com/o/icono-removebg-preview.png?alt=media&token=f3cfe6bf-b14c-4cd0-8ee5-5fa41e9fdc09" alt="Icono" class="icon"/>
+            <span class="username">Anonimo</span>
+        </div>     
         <h1><%= publicacion.datos.titulo %></h1>
         <% if (mensaje !== '') { %>
             <div class="alert alert-warning">
