@@ -6,7 +6,7 @@ const {mostrarMensajeDeReporte} = require('OSINTagram/src/Controller/publicacion
 test('Comprobar que se aumenta el numero de reportes correctamente', async () => {
     let pasaTest = true;
     try{
-        const id = "12324";
+        const id = "8UTfhncy75xlRQNpmC9n";
 
         let peticion = await db.collection("Publicaciones").doc(id).get();
         let publicacion = { id: id, datos: peticion.data() };
@@ -23,7 +23,6 @@ test('Comprobar que se aumenta el numero de reportes correctamente', async () =>
         peticion = await db.collection("Publicaciones").doc(id).get();
         publicacion = { id: id, datos: peticion.data() };
         const nuevoNumeroReportes = publicacion.datos.reportes;
-       
         if(nuevoNumeroReportes != reportesAnteriores+1){
             pasaTest = false;
         }
@@ -35,7 +34,7 @@ test('Comprobar que se aumenta el numero de reportes correctamente', async () =>
 }, 20000);
 
 afterAll(async () => {
-    const id = "12324";
+    const id = "8UTfhncy75xlRQNpmC9n";
     const peticion = await db.collection("Publicaciones").doc(id).get();
     const publicacion = { id: id, datos: peticion.data() };
 
