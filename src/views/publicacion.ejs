@@ -112,7 +112,7 @@
     <div class="container">
         <div class="user-container">
             <img src="https://firebasestorage.googleapis.com/v0/b/osintagram-be0cd.appspot.com/o/icono-removebg-preview.png?alt=media&token=f3cfe6bf-b14c-4cd0-8ee5-5fa41e9fdc09" alt="Icono" class="icon"/>
-            <span class="username">Anonimo</span>
+            <span class="username"><%=publicacion.datos.usuario%></span>
         </div>     
         <h1><%= publicacion.datos.titulo %></h1>
         <% if (mensaje !== '') { %>
@@ -124,10 +124,10 @@
         <img src="<%= publicacion.datos.imagen %>" alt="<%= publicacion.datos.titulo %>"/>
         <h3><%= publicacion.datos.localizacion %></h3>
         <p><%= publicacion.datos.descripcion %></p>
-        <div>
-            <a class="btn btn-primary" href="/">Volver</a>
-        </div>
-        <div>
+        <div class="btn-group" role="group" aria-label="Botones de acción">
+            <form id="formVolver" action="/" method="get">
+                <button id="btnVolver" class="btn btn-primary">Volver</button>
+            </form>
             <%if(sesion === "true"){%>
                 <form id="formReportar" action="/publicacion/<%=publicacion.id%>/<%=sesion%>/reportar">
                     <button id="btnReport" class="btn btn-danger">Reportar contenido</button>
@@ -149,7 +149,12 @@
                         });
                     </script>
                 </form>  
-            <%}%>        
+                <%if(nombreUser === publicacion.datos.usuario){%>
+                    <form id="formEliminar" action="/eliminarPublicacion/<%=publicacion.id%>" method="post">
+                            <button id="btnEliminar" class="btn btn-danger">Eliminar Publicacion</button>
+                    </form>
+                <%}%>
+            <%}%>      
         </div>
     </div>
 </body>

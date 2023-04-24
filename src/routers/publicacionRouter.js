@@ -43,39 +43,44 @@ PublicacionRouter.get("/", async (req, res) => {
   const fotovalQuerySnapshot = await db.collection("fotoval").get();
   const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
 
-  res.render("main", { taskList: lista, fotoval: fotoval, sesion: sesion, nombreUser: nombreUser });
+  res.render("main", {
+    taskList: lista,
+    fotoval: fotoval,
+    sesion: sesion,
+    nombreUser: nombreUser,
+  });
 });
 
-PublicacionRouter.get("/publicacion:id", async (req, res) => {
-  //en vez de lista yo quiero datos[id]
-  const querySnapshot = await db.collection("Publicaciones").get();
-  const lista = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-  ordenarAlfabeticamente(lista);
 
-  res.render("main", { publicacion: lista });
-});
 //----------------VER CADA PUBLICACION-------------
-PublicacionRouter.get("/publicacion/:id/:sesion", async (req, res) => {
-  let id = req.params.id;
-  const peticion = await db.collection("Publicaciones").doc(id).get();
-  const publicacion = { id: id, datos: peticion.data() };
-  console.log(
-    "--------------------HE CLICKADO EN LA PUBLICACION:---------------------"
-  );
-  console.log(publicacion);
-  let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes);
-  console.log("reportes:", publicacion.datos.reportes, "msg:", mensaje);
-  console.log(publicacion.id);
-  let sesion = req.params.sesion;
-  res.render("publicacion", { publicacion, mensaje, sesion });
-});
+PublicacionRouter.get( "/publicacion/:id",
+  async (req, res) => {
+    let id = req.params.id;
+    const peticion = await db.collection("Publicaciones").doc(id).get();
+    const publicacion = { id: id, datos: peticion.data() };
+    let nombreUser;
+    let sesion= req.cookies.sesion;
+    if(req.cookies.sesion== "true"){
+      nombreUser = req.cookies.nombreUser;
+    }else{
+      nombreUser = "anonimo";
+    }
+    console.log(
+      "--------------------HE CLICKADO EN LA PUBLICACION:---------------------"
+    );
+    console.log(publicacion);
+    let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes);
+    console.log("reportes:", publicacion.datos.reportes, "msg:", mensaje);
+    console.log(publicacion.id);
+
+    
+    res.render("publicacion", { publicacion, mensaje,sesion, nombreUser });
+  }
+);
 
 //----------------REPORTAR-------------
 PublicacionRouter.get("/publicacion/:id/:sesion/reportar", async (req, res) => {
-  console.log("Estpy entrando a reportar bro")
+  console.log("Estpy entrando a reportar bro");
   let id = req.params.id;
   const peticion = await db.collection("Publicaciones").doc(id).get();
   const publicacion = { id: id, datos: peticion.data() };
@@ -90,7 +95,7 @@ PublicacionRouter.get("/publicacion/:id/:sesion/reportar", async (req, res) => {
     .doc(id)
     .update({ reportes: reportesAnteriores + 1 });
 
-  res.redirect(`/publicacion/${id}/${sesion}`);
+  res.redirect(`/publicacion/${id}`);
 });
 //----------------BUSCAR POR PALABRA CLAVE-------------
 PublicacionRouter.get("/search", async (req, res) => {
@@ -114,13 +119,16 @@ PublicacionRouter.get("/crear", (req, res) => {
 });
 
 PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
+  
   const { titulo, descripcion, direccion } = req.body;
+  let nombreUser;
   const imagenFile = req.file;
-  const { mensajes, error } = await criteriosCrearPublicacion(
-    titulo,
-    descripcion,
-    direccion
-  );
+  const { mensajes, error } = await criteriosCrearPublicacion(titulo,descripcion,direccion);
+  if(req.cookies.sesion== "true"){
+    nombreUser = req.cookies.nombreUser;
+  }else{
+    nombreUser = "anonimo";
+  }
 
   if (!error) {
     // Subir la imagen a Firebase Storage. Firebase = require("firebase-auth")
@@ -139,8 +147,9 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
       descripcion: descripcion,
       localizacion: direccion,
       imagen: imagenUrl,
+      usuario: nombreUser,
       reportes: 0,
-      valoracion: -1,
+      valoracion: -1
     });
     //quiero obtener la id de la nueva publicación
     const id = publicacionRef.id;
@@ -149,7 +158,14 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
     res.render("crearPublicacion", { m: 1, mensajes: mensajes });
   }
 });
+//-----------ELIMINAR PUBLICACION------------------
 
+PublicacionRouter.post("/eliminarPublicacion/:id", async (req, res) => {
+  const id = req.params.id;
+  const publicacionRef = db.collection("Publicaciones").doc(id);
+  await publicacionRef.delete();
+  res.redirect("/");
+});
 //-----------FUNCIONES VARIAS--------------
 //están en publicacionController.js así que no hace falta ponerlas aquí
 

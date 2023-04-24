@@ -12,7 +12,7 @@ test('Comprobar que se aumenta el numero de reportes correctamente', async () =>
         let publicacion = { id: id, datos: peticion.data() };
 
         // Obtener el valor actual del atributo "reportes"
-        const reportesAnteriores = publicacion.datos.reportes;
+        let reportesAnteriores = publicacion.datos.reportes;
 
         // Actualizar el valor del atributo "reportes"
         await db
@@ -22,7 +22,8 @@ test('Comprobar que se aumenta el numero de reportes correctamente', async () =>
 
         peticion = await db.collection("Publicaciones").doc(id).get();
         publicacion = { id: id, datos: peticion.data() };
-        const nuevoNumeroReportes = publicacion.datos.reportes;
+        let nuevoNumeroReportes = publicacion.datos.reportes;
+       
         if(nuevoNumeroReportes != reportesAnteriores+1){
             pasaTest = false;
         }
