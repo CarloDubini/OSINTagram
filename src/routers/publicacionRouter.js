@@ -27,9 +27,11 @@ const PublicacionRouter = Router();
 
 //-------------------GETTS y POSTS---------------
 PublicacionRouter.get("/", async (req, res) => {
-  if (!req.cookies.sesion) {
-    res.cookie("sesion", "false");
-    res.cookie("nombreUser", "anonimo");
+  let sesion = "false";
+  let nombreUser = "anonimo";
+  if (req.cookies.sesion) {
+    sesion = req.cookies.sesion;
+    nombreUser = req.cookies.nombreUser;
   }
   const querySnapshot = await db.collection("Publicaciones").get();
   const lista = querySnapshot.docs.map((doc) => ({
@@ -41,7 +43,7 @@ PublicacionRouter.get("/", async (req, res) => {
   const fotovalQuerySnapshot = await db.collection("fotoval").get();
   const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
 
-  res.render("main", { taskList: lista, fotoval: fotoval });
+  res.render("main", { taskList: lista, fotoval: fotoval, sesion: sesion, nombreUser: nombreUser });
 });
 
 PublicacionRouter.get("/publicacion:id", async (req, res) => {
@@ -56,7 +58,7 @@ PublicacionRouter.get("/publicacion:id", async (req, res) => {
   res.render("main", { publicacion: lista });
 });
 //----------------VER CADA PUBLICACION-------------
-PublicacionRouter.get("/publicacion/:id", async (req, res) => {
+PublicacionRouter.get("/publicacion/:id/:sesion", async (req, res) => {
   let id = req.params.id;
   const peticion = await db.collection("Publicaciones").doc(id).get();
   const publicacion = { id: id, datos: peticion.data() };
@@ -66,14 +68,18 @@ PublicacionRouter.get("/publicacion/:id", async (req, res) => {
   console.log(publicacion);
   let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes);
   console.log("reportes:", publicacion.datos.reportes, "msg:", mensaje);
-  res.render("publicacion", { publicacion, mensaje });
+  console.log(publicacion.id);
+  let sesion = req.params.sesion;
+  res.render("publicacion", { publicacion, mensaje, sesion });
 });
 
 //----------------REPORTAR-------------
-PublicacionRouter.get("/publicacion/:id/reportar", async (req, res) => {
+PublicacionRouter.get("/publicacion/:id/:sesion/reportar", async (req, res) => {
+  console.log("Estpy entrando a reportar bro")
   let id = req.params.id;
   const peticion = await db.collection("Publicaciones").doc(id).get();
   const publicacion = { id: id, datos: peticion.data() };
+  let sesion = req.params.sesion;
 
   // Obtener el valor actual del atributo "reportes"
   const reportesAnteriores = publicacion.datos.reportes;
@@ -84,7 +90,7 @@ PublicacionRouter.get("/publicacion/:id/reportar", async (req, res) => {
     .doc(id)
     .update({ reportes: reportesAnteriores + 1 });
 
-  res.redirect(`/publicacion/${id}`);
+  res.redirect(`/publicacion/${id}/${sesion}`);
 });
 //----------------BUSCAR POR PALABRA CLAVE-------------
 PublicacionRouter.get("/search", async (req, res) => {
