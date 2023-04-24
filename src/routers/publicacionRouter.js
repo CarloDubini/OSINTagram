@@ -120,10 +120,10 @@ PublicacionRouter.get("/crear", (req, res) => {
 
 PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
   
-  const { titulo, descripcion, direccion } = req.body;
+  let { titulo, descripcion, direccion } = req.body;
   let nombreUser;
-  const imagenFile = req.file;
-  const { mensajes, error } = await criteriosCrearPublicacion(titulo,descripcion,direccion);
+  let imagenFile = req.file;
+  let { mensajes, error } = await criteriosCrearPublicacion(titulo,descripcion,direccion);
   if(req.cookies.sesion== "true"){
     nombreUser = req.cookies.nombreUser;
   }else{
@@ -132,7 +132,7 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
 
   if (!error) {
     // Subir la imagen a Firebase Storage. Firebase = require("firebase-auth")
-    const bucket = firebaseAdmin.storage().bucket();
+    let bucket = firebaseAdmin.storage().bucket();
     await bucket.upload(imagenFile.path, {
       metadata: {
         metadata: {
@@ -140,9 +140,9 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
         },
       },
     });
-    const imagenUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${imagenFile.filename}?alt=media`;
+    let imagenUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${imagenFile.filename}?alt=media`;
     // Guardar la publicación en Firestore
-    const publicacionRef = await db.collection("Publicaciones").add({
+    let publicacionRef = await db.collection("Publicaciones").add({
       titulo: titulo,
       descripcion: descripcion,
       localizacion: direccion,
@@ -152,7 +152,7 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
       valoracion: -1
     });
     //quiero obtener la id de la nueva publicación
-    const id = publicacionRef.id;
+    let id = publicacionRef.id;
     res.redirect(`/publicacion/${id}`);
   } else {
     res.render("crearPublicacion", { m: 1, mensajes: mensajes });
