@@ -166,6 +166,12 @@ PublicacionRouter.post("/eliminarPublicacion/:id", async (req, res) => {
   await publicacionRef.delete();
   res.redirect("/");
 });
+
+//---------MOSTRAR BOTÓN MODIFICAR------------
+PublicacionRouter.post("/modificarPublicacion/:id", async (req, res) => {
+  //No es de esta practica 
+});
+
 //-----------FUNCIONES VARIAS--------------
 //están en publicacionController.js así que no hace falta ponerlas aquí
 

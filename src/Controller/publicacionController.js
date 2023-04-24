@@ -125,6 +125,16 @@ async function criteriosCrearPublicacion(titulo, descripcion, direccion){
     
 }
 
+function mostarModificarPublicacion(titulo, usuarioPublicacion, usuarioActual){
+    if(usuarioCreador(usuarioPublicacion, usuarioActual)){
+        return true;
+    }
+}
+    
+
+
+
+
 module.exports = {ordenarAlfabeticamente,
     mostrarMensaje,
     buscarPorPalabraClave,
@@ -132,5 +142,6 @@ module.exports = {ordenarAlfabeticamente,
     pruebaDatosPorTítulo,
     pruebaBusquedaPorPalabraClave,
     mostrarMensajeDeReporte,
-    criteriosCrearPublicacion
+    criteriosCrearPublicacion,
+    mostarModificarPublicacion,
 }
