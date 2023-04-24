@@ -40,8 +40,18 @@ async function mostrarMensajeDeUsuarioYaExiste(nombreUsuario) {
   return mensaje;
 }
 
+function usuarioCreador(usuarioPublicacion, usuarioActual){
+  if(usuarioPublicacion===usuarioActual && usuarioActual !== "anonimo"){
+      return true;
+  }
+  else{
+      return false;
+  }
+}
+
 module.exports = {
   mostrarMensajeDeContraseñasNoIguales,
   mostrarMensajeDeUsuarioYaExiste,
   mostrarMensaje,
+  usuarioCreador,
 };

@@ -129,6 +129,11 @@
                 <button id="btnVolver" class="btn btn-primary">Volver</button>
             </form>
             <%if(sesion === "true"){%>
+                <%if(nombreUser === publicacion.datos.usuario){%>
+                    <form id="formModificar" action="/modificarPublicacion/<%=publicacion.id%>" method="post">
+                        <button id="btnModificar" class="bbtn btn-primary">Modificar Publicacion</button>
+                    </form>
+                <%}%>
                 <form id="formReportar" action="/publicacion/<%=publicacion.id%>/<%=sesion%>/reportar">
                     <button id="btnReport" class="btn btn-danger">Reportar contenido</button>
                     <script>
