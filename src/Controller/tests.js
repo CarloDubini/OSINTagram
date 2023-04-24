@@ -25,6 +25,14 @@ function obtenerPublicacionPorID(id,lista){
     }
     return "";
 };
+
+function obtenerUsuarioPorNombredeUsuario(nombreUsuario,lista){ 
+    for(let i=0; i<lista.length;i++){
+        if(lista[i].nombreUsuario === nombreUsuario) return lista[i];
+    }
+    return "";
+};
+
 function obtenerValoracionPorID(id,lista){ 
     for(let i=0; i<lista.length;i++){
         if(lista[i].id === id) return lista[i].valoracion;
@@ -46,4 +54,4 @@ function aumentarNumeroReportesPorID(id,lista){
     }
     return "";
 }
-module.exports= {tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID};
+module.exports= {obtenerUsuarioPorNombredeUsuario, tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID};

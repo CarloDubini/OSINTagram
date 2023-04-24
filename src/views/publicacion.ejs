@@ -21,6 +21,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <link rel="shortcut icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/osintagram-be0cd.appspot.com/o/favicon.ico?alt=media&token=808ec839-7b45-41b2-a15d-b2bc456e81bb">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -108,7 +109,11 @@
     </style>
 </head>
 <body>
-    <div class="container">       
+    <div class="container">
+        <div class="user-container">
+            <img src="https://firebasestorage.googleapis.com/v0/b/osintagram-be0cd.appspot.com/o/icono-removebg-preview.png?alt=media&token=f3cfe6bf-b14c-4cd0-8ee5-5fa41e9fdc09" alt="Icono" class="icon"/>
+            <span class="username">Anonimo</span>
+        </div>     
         <h1><%= publicacion.datos.titulo %></h1>
         <% if (mensaje !== '') { %>
             <div class="alert alert-warning">
