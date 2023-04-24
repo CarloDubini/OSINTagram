@@ -19,27 +19,78 @@
     />
     <link rel="stylesheet" href="/css/taskScreen.css" media="screen" />
     <link rel="stylesheet" href="/css/stars.css" media="screen" />
+    <style>
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #0d1117;
+        padding: 20px;
+      }
+
+      .navbar form {
+        margin-right: 10px;
+      }
+
+      .navbar button {
+        background-color: #007bff;
+        color: #0d1117;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar button:hover {
+        background-color: #0062cc;
+      }
+
+      .navbar input {
+        border: none;
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+      }
+      .busqueda {
+        border: none;
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <form action="/user/registrar">
-        <button type="registrarse" class="btn btn-info">Registrate</button>
-      </form>
-      <form action="/user/login">
-        <button type="submitLogin" class="btn btn-info">Iniciar Sesion</button>
-      </form>
-      <form action="/crear">
-        <button type="submitLogin" class="btn btn-info">
-          Crear Publicacion
-        </button>
-      </form>
-      <form action="/user/logout">
-        <button type="submitLogin" class="btn btn-info">Cerrar Sesion</button>
-      </form>
-      <form action="/search">
-        <input type="text" placeholder="Buscar..." name="searchInput" />
-        <button type="submitBuscar" class="btn btn-info">BUSCAR</button>
-      </form>
+      <nav class="navbar">
+        <form action="/user/registrar">
+          <button type="registrarse" class="btn btn-info">Registrate</button>
+        </form>
+        <form action="/user/login">
+          <button type="submitLogin" class="btn btn-info">
+            Iniciar Sesion
+          </button>
+        </form>
+        <form action="/crear">
+          <button type="submitLogin" class="btn btn-info">
+            Crear Publicacion
+          </button>
+        </form>
+        <form action="/user/logout">
+          <button type="submitLogin" class="btn btn-info">Cerrar Sesion</button>
+        </form>
+        <form action="/user/cambiarContrasena">
+          <button type="submitcambiarContraseña" class="btn btn-info">
+            Cambiar Contraseña
+          </button>
+        </form>
+      </nav>
+      <div class="busqueda">
+        <form action="/search">
+          <input type="text" placeholder="Buscar..." name="searchInput" />
+          <button type="submitBuscar" class="btn btn-info">BUSCAR</button>
+        </form>
+      </div>
       <div class="row justify-content-center task-list">
         <% taskList.forEach(task => { %>
         <div class="col-md-6 mb-3">
@@ -50,9 +101,7 @@
                   <p class="task-name"><%= task.titulo %></p>
                 </div>
                 <div class="col-2">
-                  <form
-                    action="publicacion/<%=task.id %>/<%=sesion%>/<%=nombreUser%>"
-                  >
+                  <form action="publicacion/<%=task.id %>">
                     <button type="submit" class="btn btn-info">VER</button>
                   </form>
                 </div>
