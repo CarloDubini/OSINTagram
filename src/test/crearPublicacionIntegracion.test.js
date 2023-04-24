@@ -20,7 +20,6 @@ describe("Creación de publicaciones", () => {
     // Obtener la última publicación añadida a la base de datos
     const peticion = await db.collection("Publicaciones").doc("pr2").get();
     const publicacion = { id: "pr2", datos: peticion.data() };
-    console.log(publicacion);
     // Comprobar si los datos de la publicación creada coinciden con los datos enviados en la petición POST
     expect(publicacion.datos.titulo).toEqual(nuevaPublicacion.titulo);
     expect(publicacion.datos.localizacion).toEqual(nuevaPublicacion.localizacion);
