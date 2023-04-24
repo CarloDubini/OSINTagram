@@ -84,6 +84,9 @@
             Cambiar Contraseña
           </button>
         </form>
+        <form action="/user/listarPublicaciones">
+          <button type="listarPublicaciones" class="btn btn-info">Ver tus publicaciones</button>
+        </form>
       </nav>
       <div class="busqueda">
         <form action="/search">
@@ -92,6 +95,11 @@
         </form>
       </div>
       <div class="row justify-content-center task-list">
+        <% if (!taskList || taskList.length === 0) { %>
+          <div class="alert alert-warning">
+              <p>No hay publicaciones</p>
+          </div>
+        <% } %>
         <% taskList.forEach(task => { %>
         <div class="col-md-6 mb-3">
           <div class="card">
