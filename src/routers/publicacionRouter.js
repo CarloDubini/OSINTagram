@@ -170,3 +170,39 @@ PublicacionRouter.post("/eliminarPublicacion/:id", async (req, res) => {
 //están en publicacionController.js así que no hace falta ponerlas aquí
 
 module.exports = { PublicacionRouter };
+
+
+//----------------VER CADA PUBLICACION-------------
+PublicacionRouter.get( "/misPublicaciones/",
+  async (req, res) => {
+    let id = req.params.id;
+    
+    let nombreUser;
+    let sesion= req.cookies.sesion;
+    if(req.cookies.sesion== "true"){
+      nombreUser = req.cookies.nombreUser;
+    }else{
+      nombreUser = "anonimo";
+    }
+    const peticion = await db.collection("Publicaciones").where("usuario", "==", nombreUser).get();
+    const lista = peticion.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    ordenarAlfabeticamente(lista);
+    // coger la foto para la valoracion
+    const fotovalQuerySnapshot = await db.collection("fotos").get();
+    const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().imagen);
+
+    console.log(
+      "--------------------HE CLICKADO EN MI PUBLICACION:---------------------"
+    );
+
+    res.render("main", {
+      taskList: lista,
+      fotoval: fotoval,
+      sesion: sesion,
+      nombreUser: nombreUser,
+    });
+  }
+);
