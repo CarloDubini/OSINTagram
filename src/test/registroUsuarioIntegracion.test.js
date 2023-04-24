@@ -1,50 +1,57 @@
 const { TestWatcher } = require("jest");
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {mostrarMensajeDeReporte} = require('OSINTagram/src/Controller/publicacionController.js');
+const {usuarioDuplicado } = require('../Controller/tests');
 
-test('Comprobar que la funcion de mostrar mensaje de reporte funciona correctamente con valores extraidos de la base de datos', async () => {
-    let pasaTest = true;
+let lista = {};
+beforeAll(async () => {
+     // Añadir un nuevo elemento que vamos a comprobar
+     const res = await db.collection('Usuarios').doc('pr1').set({ 
+        contraseña: "QueTeVoteTxapote",
+        logeado: 0,
+        nombreUsuario: "PedroSanxe",
+    });
+    const querySnapshot = await db.collection('Usuarios').get();
+    lista = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+}, 15000);
+
+test('Comprobar que la funcion de comprobar nombres de usuario duplicados funciona correctamente con un valor extraido de la base de datos', async () => {
+    let pasaTest = false;
     try{
-        const id = 'IwWoulHSw7v7sxAHdOn5';
-        const peticion = await db.collection('Publicaciones').doc(id).get()
-        const numReportes = {id:id, datos : peticion.data().reportes}
-        mostrarMensajeDeReporte(numReportes.datos);
+        id = "pr1";
+        const peticion = await db.collection('Usuarios').doc(id).get()
+        const usuario = {id:id, datos : peticion.data()}
+        pasaTest = await usuarioDuplicado(usuario.datos.nombreUsuario, lista);
     }catch(error){
         pasaTest = false;
     }
     expect(pasaTest).toBe(true);
 }, 20000);
 
-test('Comprobar que la funcion de mostrar mensaje de reporte obtiene el mensaje correctamente con valores extraidos de la base de datos', async () => {
+test('Comprobar que los valores de los campos de usuario se crean correctamente en la base de datos', async () => {
     let pasaTest = true;
-    let mensajeEsperado = 'Esta publicacion ha sido reportada por varios usuarios y puede ser falsa';
-    let mensajeGenerado;
     try{
-        const id = 'pKt4lzyXhGbxyYqWAnkC';
-        const peticion = await db.collection('Publicaciones').doc(id).get()
-        const numReportes = {id:id, datos : peticion.data().reportes}
-        mensajeGenerado = mostrarMensajeDeReporte(numReportes.datos);
+        id = 'pr1';
+        const peticion = await db.collection('Usuarios').doc(id).get()
+        const usuario = {id:id, datos : peticion.data()}
+
+        expect(usuario.datos.contraseña).toEqual("QueTeVoteTxapote");
+        expect(usuario.datos.logeado).toEqual(0);
+        expect(usuario.datos.nombreUsuario).toEqual("PedroSanxe");
+
     }catch(error){
         pasaTest = false;
     }
-    expect(mensajeGenerado).toBe(mensajeEsperado);
+    expect(pasaTest).toBe(true);
 }, 20000);
 
-test('Comprobar que la funcion de mostrar mensaje de reporte obtiene el mensaje correctamente con valores extraidos de la base de datos', async () => {
-    let pasaTest = true;
-    let mensajeEsperado = '';
-    let mensajeGenerado;
-    try{
-        const id = 'IwWoulHSw7v7sxAHdOn5';
-        const peticion = await db.collection('Publicaciones').doc(id).get()
-        const numReportes = {id:id, datos : peticion.data().reportes}
-        mensajeGenerado = mostrarMensajeDeReporte(numReportes.datos);
-    }catch(error){
-        pasaTest = false;
-    }
-    expect(mensajeGenerado).toBe(mensajeEsperado);
-}, 20000);
+afterAll(async () => {
+    // Eliminar la publicación de la base de datos
+    await db.collection('Usuarios').doc("pr1").delete();
+});
 
 
 
