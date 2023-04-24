@@ -62,4 +62,14 @@ function usuarioDuplicado(nombreUsuario, lista){
     }
     return false;
 }
-module.exports= {obtenerUsuarioPorNombredeUsuario, tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID,usuarioDuplicado};
+
+function obtenerPublicacionesPorNombre(lista, nombre){
+    let res = [];
+    for(let i=0; i<lista.length;i++){
+        if(lista[i].usuario === nombre) 
+            res.push(lista[i])
+    }
+    return res;
+}
+
+module.exports= {obtenerPublicacionesPorNombre, tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID,usuarioDuplicado};
