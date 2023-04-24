@@ -194,4 +194,6 @@ UserRouter.post("/cambiarContrasena", async (req, res) => {
     res.send("Hubo un error al actualizar la contraseña.");
   }
 });
+
+
 module.exports = { UserRouter };
