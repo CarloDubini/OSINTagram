@@ -124,10 +124,10 @@
         <img src="<%= publicacion.datos.imagen %>" alt="<%= publicacion.datos.titulo %>"/>
         <h3><%= publicacion.datos.localizacion %></h3>
         <p><%= publicacion.datos.descripcion %></p>
-        <div>
-            <a class="btn btn-primary" href="/">Volver</a>
-        </div>
-        <div>
+        <div class="btn-group" role="group" aria-label="Botones de acción">
+            <form id="formVolver" action="/" method="get">
+                <button id="btnVolver" class="btn btn-primary">Volver</button>
+            </form>
             <%if(sesion === "true"){%>
                 <form id="formReportar" action="/publicacion/<%=publicacion.id%>/<%=sesion%>/reportar">
                     <button id="btnReport" class="btn btn-danger">Reportar contenido</button>
@@ -154,7 +154,7 @@
                             <button id="btnEliminar" class="btn btn-danger">Eliminar Publicacion</button>
                     </form>
                 <%}%>
-            <%}%>        
+            <%}%>      
         </div>
     </div>
 </body>
