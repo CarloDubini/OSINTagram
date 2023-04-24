@@ -43,7 +43,12 @@ PublicacionRouter.get("/", async (req, res) => {
   const fotovalQuerySnapshot = await db.collection("fotoval").get();
   const fotoval = fotovalQuerySnapshot.docs.map((doc) => doc.data().link);
 
-  res.render("main", { taskList: lista, fotoval: fotoval, sesion: sesion, nombreUser: nombreUser });
+  res.render("main", {
+    taskList: lista,
+    fotoval: fotoval,
+    sesion: sesion,
+    nombreUser: nombreUser,
+  });
 });
 
 PublicacionRouter.get("/publicacion:id", async (req, res) => {
@@ -58,24 +63,28 @@ PublicacionRouter.get("/publicacion:id", async (req, res) => {
   res.render("main", { publicacion: lista });
 });
 //----------------VER CADA PUBLICACION-------------
-PublicacionRouter.get("/publicacion/:id/:sesion", async (req, res) => {
-  let id = req.params.id;
-  const peticion = await db.collection("Publicaciones").doc(id).get();
-  const publicacion = { id: id, datos: peticion.data() };
-  console.log(
-    "--------------------HE CLICKADO EN LA PUBLICACION:---------------------"
-  );
-  console.log(publicacion);
-  let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes);
-  console.log("reportes:", publicacion.datos.reportes, "msg:", mensaje);
-  console.log(publicacion.id);
-  let sesion = req.params.sesion;
-  res.render("publicacion", { publicacion, mensaje, sesion });
-});
+PublicacionRouter.get(
+  "/publicacion/:id/:sesion/:nombreUser",
+  async (req, res) => {
+    let id = req.params.id;
+    const peticion = await db.collection("Publicaciones").doc(id).get();
+    const publicacion = { id: id, datos: peticion.data() };
+    console.log(
+      "--------------------HE CLICKADO EN LA PUBLICACION:---------------------"
+    );
+    console.log(publicacion);
+    let mensaje = mostrarMensajeDeReporte(publicacion.datos.reportes);
+    console.log("reportes:", publicacion.datos.reportes, "msg:", mensaje);
+    console.log(publicacion.id);
+    let sesion = req.params.sesion;
+    let nombreUser = req.params.nombreUser;
+    res.render("publicacion", { publicacion, mensaje, sesion, nombreUser });
+  }
+);
 
 //----------------REPORTAR-------------
 PublicacionRouter.get("/publicacion/:id/:sesion/reportar", async (req, res) => {
-  console.log("Estpy entrando a reportar bro")
+  console.log("Estpy entrando a reportar bro");
   let id = req.params.id;
   const peticion = await db.collection("Publicaciones").doc(id).get();
   const publicacion = { id: id, datos: peticion.data() };
@@ -149,7 +158,14 @@ PublicacionRouter.post("/crear", upload.single("imagen"), async (req, res) => {
     res.render("crearPublicacion", { m: 1, mensajes: mensajes });
   }
 });
+//-----------ELIMINAR PUBLICACION------------------
 
+PublicacionRouter.post("/eliminarPublicacion/:id", async (req, res) => {
+  const id = req.params.id;
+  const publicacionRef = db.collection("Publicaciones").doc(id);
+  await publicacionRef.delete();
+  res.redirect("/");
+});
 //-----------FUNCIONES VARIAS--------------
 //están en publicacionController.js así que no hace falta ponerlas aquí
 
