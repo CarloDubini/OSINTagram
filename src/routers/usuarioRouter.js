@@ -154,4 +154,44 @@ UserRouter.post("/logout", async (req, res) => {
     return res.status(500).json({ error: "Error al buscar usuario" });
   }
 });
+
+//---------CAMBIAR CONTRASEÑA------------
+UserRouter.get("/cambiarContrasena", async (req, res) => {
+  let mensaje = "";
+
+  res.render("cambiarContrasena", { mensaje });
+});
+
+UserRouter.post("/cambiarContrasena", async (req, res) => {
+  const { nombreUsuario, anteriorContraseña, nuevaContraseña } = req.body;
+  console.log(nombreUsuario);
+  console.log(anteriorContraseña);
+  console.log(nuevaContraseña);
+  try {
+    // Buscamos el usuario por su nombre de usuario
+    const usuariosRef = db.collection("Usuarios");
+    const query = await usuariosRef
+      .where("nombreUsuario", "==", nombreUsuario)
+      .get();
+
+    // Si el usuario existe, actualizamos su contraseña
+    if (!query.empty) {
+      const usuarioDoc = query.docs[0];
+      const data = usuarioDoc.data();
+
+      // Verificamos que la contraseña actual sea correcta
+      if (data.contraseña === anteriorContraseña) {
+        await usuarioDoc.ref.update({ contraseña: nuevaContraseña });
+        res.redirect("/");
+      } else {
+        res.send("La contraseña actual no es correcta.");
+      }
+    } else {
+      res.send("No se encontró un usuario con ese nombre de usuario.");
+    }
+  } catch (error) {
+    console.error(error);
+    res.send("Hubo un error al actualizar la contraseña.");
+  }
+});
 module.exports = { UserRouter };
