@@ -72,4 +72,4 @@ function obtenerPublicacionesPorNombre(lista, nombre){
     return res;
 }
 
-module.exports= {obtenerPublicacionesPorNombre, tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID,usuarioDuplicado};
+module.exports= {obtenerUsuarioPorNombredeUsuario, obtenerPublicacionesPorNombre, tituloVacio,longitudLista,titulosVacios,obtenerPublicacionPorID,obtenerValoracionPorID,obtenerNumeroReportesPorID,aumentarNumeroReportesPorID,usuarioDuplicado};

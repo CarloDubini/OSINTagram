@@ -1,7 +1,7 @@
 const { TestWatcher } = require("jest");
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
-const {obtenerUsuarioPorNombredeUsuario} =  require('OSINTagram/src/Controller/tests.js');
+const {obtenerUsuarioPorNombredeUsuario, obtenerPublicacionesPorNombre} =  require('OSINTagram/src/Controller/tests.js');
 
 let lista = [];
 beforeAll(async () => {
@@ -34,7 +34,7 @@ test('Comprobar que la funcion de iniciar sesión funciona correctamente cuando 
     }catch(error){
         pasaTest = false;
     }
-     expect(pasaTest).toBe(false);
+     expect(pasaTest).toBe(true);
 }, 20000);
 
  test('Comprobar que la funcion de iniciar sesión funciona correctamente cuando se introducen un usuario que no existe y una contreseña', async () => {
@@ -45,7 +45,7 @@ test('Comprobar que la funcion de iniciar sesión funciona correctamente cuando 
     }catch(error){
         pasaTest = false;
     }
-     //expect(usuario).toBe("");
+     expect(usuario).toBe("");
  }, 20000);
 
  test('Comprobar que la funcion de iniciar sesión funciona correctamente cuando se introducen un usuario que existe y una contreseña incorrecta', async () => {
