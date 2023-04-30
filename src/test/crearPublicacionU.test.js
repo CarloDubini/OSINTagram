@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { db } = require('OSINTagram/src/firebase');
 const {obtenerPublicacionPorID}  = require('OSINTagram/src/Controller/tests.js');
+const {criteriosCrearPublicacion}  = require('OSINTagram/src/Controller/publicacionController.js');
 
 let lista = [];
 beforeAll(async () => {
@@ -54,4 +55,18 @@ describe("Creación de publicaciones", () => {
       expect("Nueva imagen").toEqual(nuevaPublicacion.imagen);
       expect(0).toEqual(nuevaPublicacion.reportes);
     });
+  });
+
+  test("Comprobar criterios", async () => {
+    let pasaTest = true;
+    try{
+      let { mensajes, error } = criteriosCrearPublicacion(lista[0].titulo, lista[0].descripcion, lista[0].localizacion)
+      if(error){
+        pasaTest = false;
+      }
+    }
+    catch{
+      pasaTest = false;
+    }
+    expect(pasaTest).toBe(true);
   });
